@@ -8,10 +8,6 @@
 
 [node name="Level_03" type="Node2D" unique_id=1762506268]
 
-[node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_gff3n")]
-position = Vector2(920, 750)
-scale = Vector2(100, 1)
-
 [node name="Start" parent="." unique_id=1470424718 instance=ExtResource("1_1vin3")]
 position = Vector2(78, 380)
 
@@ -72,3 +68,7 @@ scale = Vector2(30, 1)
 [node name="Ground_P_10" parent="." unique_id=2051624496 instance=ExtResource("3_703nv")]
 position = Vector2(638.00006, 21)
 scale = Vector2(30, 1)
+
+[node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_gff3n")]
+position = Vector2(642.00006, 665)
+scale = Vector2(60, 1)

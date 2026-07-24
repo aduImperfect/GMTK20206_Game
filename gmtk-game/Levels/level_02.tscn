@@ -54,8 +54,8 @@ text = "Nice."
 metadata/_edit_use_anchors_ = true
 
 [node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_bsxbt")]
-position = Vector2(920, 750)
-scale = Vector2(100, 1)
+position = Vector2(642.00006, 665)
+scale = Vector2(60, 1)
 
 [node name="Ground_P_9" parent="." unique_id=340516949 instance=ExtResource("3_i2y1e")]
 position = Vector2(641.00006, 700)
