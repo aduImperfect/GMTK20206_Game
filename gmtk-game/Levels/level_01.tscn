@@ -7,32 +7,31 @@
 [ext_resource type="PackedScene" uid="uid://o11jqegfw74n" path="res://Scenes/campos.tscn" id="4_ocwms"]
 
 [node name="Level_01" type="Node2D" unique_id=234875700]
-position = Vector2(0, 154)
 
 [node name="Start" parent="." unique_id=1470424718 instance=ExtResource("3_xfk5q")]
-position = Vector2(73, 229)
+position = Vector2(73, 381)
 
 [node name="Goal2" parent="." unique_id=1634378711 instance=ExtResource("2_8ffim")]
-position = Vector2(1195, 230)
+position = Vector2(1195, 382)
 
 [node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("1_vk57k")]
-position = Vector2(20, 210)
+position = Vector2(20, 362)
 scale = Vector2(1, 18)
 
 [node name="Ground_W_R_3" parent="." unique_id=1153429463 instance=ExtResource("1_vk57k")]
-position = Vector2(1260, 208)
+position = Vector2(1260, 360)
 scale = Vector2(1, 18)
 
 [node name="Ground_P_7" parent="." unique_id=852924870 instance=ExtResource("1_vk57k")]
-position = Vector2(641.00006, 262)
+position = Vector2(641.00006, 414)
 scale = Vector2(30, 1)
 
 [node name="Ground_P_8" parent="." unique_id=2105888604 instance=ExtResource("1_vk57k")]
-position = Vector2(640.00006, 548)
+position = Vector2(640.00006, 700)
 scale = Vector2(30, 1)
 
 [node name="Ground_P_9" parent="." unique_id=238357404 instance=ExtResource("1_vk57k")]
-position = Vector2(640.00006, -130)
+position = Vector2(640.00006, 22)
 scale = Vector2(30, 1)
 
 [node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_1cq4g")]
@@ -40,20 +39,20 @@ position = Vector2(920, 750)
 scale = Vector2(100, 1)
 
 [node name="LevelEnd2" type="TextEdit" parent="." unique_id=357667467]
-offset_left = 1075.0
-offset_top = 120.0
-offset_right = 1254.0
-offset_bottom = 161.0
+offset_left = 1050.0
+offset_top = 272.0
+offset_right = 1229.0
+offset_bottom = 313.0
 text = "You're learning. ಠ╭╮ಠ"
 metadata/_edit_use_anchors_ = true
 
 [node name="LevelObjective3" type="TextEdit" parent="." unique_id=948582256]
 offset_left = 65.0
-offset_top = 99.0
+offset_top = 251.0
 offset_right = 302.0
-offset_bottom = 147.0
+offset_bottom = 299.0
 text = "Use the cards to move! (ง'̀-'́)ง"
 metadata/_edit_use_anchors_ = true
 
 [node name="Campos" parent="." unique_id=952399795 instance=ExtResource("4_ocwms")]
-position = Vector2(641, 0)
+position = Vector2(641, 152)
