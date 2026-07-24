@@ -16,9 +16,9 @@ func _ready() -> void:
 	PlayersHelper._set_ghost_container(ghost_container)
 
 	LevelsDatabase._set_values()
-	#_spawn_background()
 	_spawn_levels()
 	_spawn_players()
+	_spawn_cards()
 
 	#CamPos is second child of the level!
 	#CameraHelper.camera_position = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(1).global_position
@@ -51,3 +51,12 @@ func _spawn_players() -> void:
 		playerSpr.texture = load("res://Textures/Player" + str(k) + ".png")
 		add_child(player_instance)
 		PlayersHelper.playerNodes.append(player_instance)
+
+func _spawn_cards() -> void:
+	for k in CardsHelper.cardsCount:
+		var card_instance = CardsHelper.CARD_SCENE.instantiate()
+		card_instance.global_position.x = CardsHelper.xCardDeckCenter
+		card_instance.global_position.y = CardsHelper.yCardDeckCenter
+		card_instance.name = "Card_" + str(k)
+		add_child(card_instance)
+		CardsHelper.cardNodes.append(card_instance)

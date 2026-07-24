@@ -1,5 +1,3 @@
-extends Node
-
 class_name LevelsDatabase
 
 static var LEVEL_SCENES : Array[String] = []
@@ -39,6 +37,7 @@ static func _load_level_scenes() -> void:
 
 static func _set_values() -> void:
 	_load_level_scenes()
+	CardsHelper._set_values()
 
 	xLevelCenter = 0.0
 	yLevelCenter = 0.0

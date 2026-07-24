@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bpvogl2ohpm3i"]
 
-[ext_resource type="Texture2D" uid="uid://dyeeslsayw5u0" path="res://Textures/Card_01.png" id="1_470ht"]
+[ext_resource type="Texture2D" uid="uid://caguwvc70q7no" path="res://Textures/Card_Back.png" id="1_0qqmn"]
 
 [node name="Card" type="Node2D" unique_id=1416047968]
 
 [node name="CardTex" type="Sprite2D" parent="." unique_id=188414808]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_470ht")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_0qqmn")

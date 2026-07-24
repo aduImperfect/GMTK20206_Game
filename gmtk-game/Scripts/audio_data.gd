@@ -8,7 +8,7 @@ static var audioMasterVolume : float = 0.0
 
 static func _inital_volume_values() -> void:
 	#Exactly half the volume
-	audioMasterVolume = 0.5
+	audioMasterVolume = 0.0
 
 static func _reset_volume_values() -> void:
 	audioMasterVolume = SaveLoadHelper.save_data.get("game", 1).get("audio", 1).get("volume", 1).get("master", 1)
