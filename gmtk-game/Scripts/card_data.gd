@@ -16,6 +16,7 @@ static var xInf : float = 0.0
 static var yInf : float = 0.0
 
 static var handLimit : int = 0
+static var handLimits : Array[int] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,4 +35,9 @@ static func _set_values() -> void:
 	yCardDeckCenter = 600.0
 	xInf = -9999.0
 	yInf = -9999.0
+
+	#Hand limits appended for each level!
+	#for k in LevelsDatabase.levelsCount:
+		#handLimits.append(4)
+
 	handLimit = 4
