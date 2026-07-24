@@ -105,8 +105,6 @@ func _process(_delta: float) -> void:
 		else:
 			InputsData.jump_speed = InputsData.min_jump_speed
 
-	#_player_death()
-
 
 func _physics_process(_delta: float) -> void:
 	if initializationCommplete == false:
