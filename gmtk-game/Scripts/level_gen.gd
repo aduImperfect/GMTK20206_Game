@@ -21,7 +21,7 @@ func _ready() -> void:
 	_spawn_players()
 
 	#CamPos is second child of the level!
-	CameraHelper.camera_position = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(1).global_position
+	#CameraHelper.camera_position = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(1).global_position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

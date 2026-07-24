@@ -74,6 +74,12 @@ static func _level_switcher(newLevelNum : int = -1) -> void:
 		#print("Game Complete")
 		return
 
+	for k in LevelsDatabase.levelsCount:
+		LevelsDatabase.levelNodes[k].global_position.y -= yLevelOffset
+		if (k != 0) && ((k % LevelsDatabase.maxHeight) == 0):
+			LevelsDatabase.levelNodes[k].global_position.x -= xLevelOffset
+		print(LevelsDatabase.levelNodes[k].global_position.x, LevelsDatabase.levelNodes[k].global_position.y)
+
 	for k in PlayersHelper.playerNodes.size():
 		PlayersHelper.clear_ghosts_for_player(k)
 		PlayersHelper.playerNodes[k].get_child(0).position = Vector2(0.0, 0.0)
@@ -81,7 +87,7 @@ static func _level_switcher(newLevelNum : int = -1) -> void:
 		PlayersHelper.playerNodes[k].get_child(0)._start_new_run()
 
 	#CamPos is second child of the level!
-	CameraHelper.camera_position = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(1).global_position
+	#CameraHelper.camera_position = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(1).global_position
 
 	SaveLoadHelper.save_game()
 	print("---------------")
