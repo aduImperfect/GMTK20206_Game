@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://dl4i8yvjvkeqn"]
+
+[ext_resource type="Script" uid="uid://4w612h75jow1" path="res://Scripts/fps_counter.gd" id="1_147pp"]
+[ext_resource type="Script" uid="uid://dvi1dxjcqcoji" path="res://Scripts/num_players.gd" id="12_kcbrv"]
+[ext_resource type="Script" uid="uid://cl4r0qgo3q7ed" path="res://Scripts/current_level_edit.gd" id="13_e4h4u"]
+[ext_resource type="Script" uid="uid://bbbfnseownm31" path="res://Scripts/begin_delay_current.gd" id="14_8i0sk"]
+[ext_resource type="Script" uid="uid://dlmi68kjk4hs7" path="res://Scripts/current_input.gd" id="15_c1erm"]
+[ext_resource type="Script" uid="uid://bclyum0tp5xuw" path="res://Scripts/gamepad_in_use.gd" id="16_enppw"]
+[ext_resource type="Script" uid="uid://b2ipuj5dflvvi" path="res://Scripts/cam_smoothing_edit.gd" id="17_enppw"]
+[ext_resource type="Script" uid="uid://1i3ejx2r54yf" path="res://Scripts/master_volume_h_slider_edit.gd" id="18_kx34a"]
+[ext_resource type="Script" uid="uid://bex8rordnc1rm" path="res://Scripts/master_volume_h_slider_title.gd" id="18_wc7ih"]
+
+[node name="MainUi" type="Node2D" unique_id=473959145]
+
+[node name="FPSCounter" type="TextEdit" parent="." unique_id=601955518]
+z_index = 100
+custom_minimum_size = Vector2(100, 40)
+offset_left = -560.0
+offset_top = -305.0
+offset_right = -460.0
+offset_bottom = -285.0
+script = ExtResource("1_147pp")
+
+[node name="NumPlayers" type="TextEdit" parent="." unique_id=2083542118]
+z_index = 100
+custom_minimum_size = Vector2(200, 40)
+offset_left = -543.0
+offset_top = 18.0
+offset_right = -343.0
+offset_bottom = 58.0
+script = ExtResource("12_kcbrv")
+
+[node name="CurrentLevelEdit" type="TextEdit" parent="." unique_id=596001624]
+z_index = 100
+custom_minimum_size = Vector2(200, 40)
+offset_left = -446.0
+offset_top = -305.0
+offset_right = -246.0
+offset_bottom = -265.0
+script = ExtResource("13_e4h4u")
+
+[node name="BeginDelayCurrent" type="TextEdit" parent="." unique_id=851112648]
+visible = false
+z_index = 100
+custom_minimum_size = Vector2(200, 40)
+offset_left = -227.0
+offset_top = -305.0
+offset_right = -27.0
+offset_bottom = -265.0
+script = ExtResource("14_8i0sk")
+
+[node name="CurrentInput" type="TextEdit" parent="." unique_id=1524028920]
+z_index = 100
+custom_minimum_size = Vector2(399, 80)
+offset_left = -541.0
+offset_top = 194.0
+offset_right = -142.0
+offset_bottom = 274.0
+script = ExtResource("15_c1erm")
+
+[node name="GamepadInUse" type="TextEdit" parent="." unique_id=1735564947]
+z_index = 100
+custom_minimum_size = Vector2(200, 40)
+offset_left = -542.0
+offset_top = 138.0
+offset_right = -342.0
+offset_bottom = 178.0
+script = ExtResource("16_enppw")
+
+[node name="CamSmoothingEdit" type="TextEdit" parent="." unique_id=1992169720]
+z_index = 100
+custom_minimum_size = Vector2(200, 40)
+offset_left = -540.0
+offset_top = 72.0
+offset_right = -340.0
+offset_bottom = 112.0
+script = ExtResource("17_enppw")
+
+[node name="MasterVolumeHSliderTitle" type="TextEdit" parent="." unique_id=1472250107]
+z_index = 100
+custom_minimum_size = Vector2(150, 40)
+offset_left = -314.0
+offset_top = 96.0
+offset_right = -164.0
+offset_bottom = 136.0
+text = "Master Volume"
+script = ExtResource("18_wc7ih")
+
+[node name="MasterVolumeHSliderEdit" type="HSlider" parent="." unique_id=1652831052]
+z_index = 100
+custom_minimum_size = Vector2(150, 20)
+offset_left = -315.0
+offset_top = 151.0
+offset_right = -165.0
+offset_bottom = 171.0
+max_value = 1.0
+step = 0.01
+script = ExtResource("18_kx34a")
