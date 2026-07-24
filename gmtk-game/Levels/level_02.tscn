@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dbswmh8aba0vb" path="res://Scenes/start.tscn" id="1_2qs01"]
 [ext_resource type="PackedScene" uid="uid://c2gstpkex2tx8" path="res://Scenes/goal.tscn" id="2_iel4d"]
+[ext_resource type="PackedScene" uid="uid://o11jqegfw74n" path="res://Scenes/campos.tscn" id="3_6mfy8"]
 [ext_resource type="PackedScene" uid="uid://b36n3qasn3g46" path="res://Scenes/ground.tscn" id="3_i2y1e"]
 [ext_resource type="PackedScene" uid="uid://c7kw2s1jyomna" path="res://Scenes/death.tscn" id="4_bsxbt"]
 
@@ -13,24 +14,16 @@ position = Vector2(272, 451)
 [node name="Goal" parent="." unique_id=1634378711 instance=ExtResource("2_iel4d")]
 position = Vector2(977, 413)
 
-[node name="Ground_C_1" parent="." unique_id=1751980 instance=ExtResource("3_i2y1e")]
-position = Vector2(920, -132)
-scale = Vector2(44.03, 1)
+[node name="Campos" parent="." unique_id=952399795 instance=ExtResource("3_6mfy8")]
+position = Vector2(678, 190)
 
-[node name="Ground_W_L_1" parent="." unique_id=16964396 instance=ExtResource("3_i2y1e")]
-position = Vector2(20, 248)
-scale = Vector2(1, 20)
+[node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("3_i2y1e")]
+position = Vector2(21, 363)
+scale = Vector2(1, 18)
 
-[node name="Ground_W_R_1" parent="." unique_id=1804239981 instance=ExtResource("3_i2y1e")]
-position = Vector2(1820, 248)
-scale = Vector2(1, 20)
-
-[node name="Ground_F_1" parent="." unique_id=1686414086 instance=ExtResource("3_i2y1e")]
-position = Vector2(240, 628)
-scale = Vector2(10, 1)
-
-[node name="Ground_F_2" parent="." unique_id=553455818 instance=ExtResource("3_i2y1e")]
-position = Vector2(1781, 628)
+[node name="Ground_W_R_3" parent="." unique_id=214894708 instance=ExtResource("3_i2y1e")]
+position = Vector2(1261, 361)
+scale = Vector2(1, 18)
 
 [node name="Ground_P_5" parent="." unique_id=350770238 instance=ExtResource("3_i2y1e")]
 position = Vector2(627, 443)
@@ -44,20 +37,13 @@ scale = Vector2(5, 1)
 position = Vector2(364, 483)
 scale = Vector2(5, 1)
 
-[node name="Ground_P_10" parent="." unique_id=1069145512 instance=ExtResource("3_i2y1e")]
-position = Vector2(683.00006, 628)
-scale = Vector2(14, 1)
-
-[node name="Ground_P_12" parent="." unique_id=893139727 instance=ExtResource("3_i2y1e")]
-position = Vector2(1361, 628)
-scale = Vector2(20, 1)
-
 [node name="LevelObjective" type="TextEdit" parent="." unique_id=512979000]
 offset_left = 60.0
 offset_top = 363.0
 offset_right = 223.0
 offset_bottom = 401.0
 text = "Jump good practice."
+metadata/_edit_use_anchors_ = true
 
 [node name="LevelEnd" type="TextEdit" parent="." unique_id=1581963938]
 offset_left = 1005.0
@@ -65,7 +51,16 @@ offset_top = 339.0
 offset_right = 1061.0
 offset_bottom = 375.0
 text = "Nice."
+metadata/_edit_use_anchors_ = true
 
 [node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_bsxbt")]
 position = Vector2(920, 750)
 scale = Vector2(100, 1)
+
+[node name="Ground_P_9" parent="." unique_id=340516949 instance=ExtResource("3_i2y1e")]
+position = Vector2(641.00006, 700)
+scale = Vector2(30, 1)
+
+[node name="Ground_P_10" parent="." unique_id=624409404 instance=ExtResource("3_i2y1e")]
+position = Vector2(638.00006, 21)
+scale = Vector2(30, 1)

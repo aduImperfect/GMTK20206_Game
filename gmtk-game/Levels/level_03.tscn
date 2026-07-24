@@ -8,71 +8,67 @@
 
 [node name="Level_03" type="Node2D" unique_id=1762506268]
 
-[node name="Start" parent="." unique_id=1470424718 instance=ExtResource("1_1vin3")]
-position = Vector2(69, 594)
-
-[node name="Campos" parent="." unique_id=952399795 instance=ExtResource("2_f3lte")]
-position = Vector2(268, 585)
-
-[node name="Goal" parent="." unique_id=1634378711 instance=ExtResource("2_ojpmh")]
-position = Vector2(1787, 453)
-
-[node name="Ground_C_1" parent="." unique_id=1751980 instance=ExtResource("3_703nv")]
-position = Vector2(920, -132)
-scale = Vector2(44.03, 1)
-
-[node name="Ground_W_L_1" parent="." unique_id=810051558 instance=ExtResource("3_703nv")]
-position = Vector2(20, 248)
-scale = Vector2(1, 20)
-
-[node name="Ground_W_R_1" parent="." unique_id=44279467 instance=ExtResource("3_703nv")]
-position = Vector2(1820, 248)
-scale = Vector2(1, 20)
-
-[node name="Ground_F_1" parent="." unique_id=1632604068 instance=ExtResource("3_703nv")]
-position = Vector2(240, 628)
-scale = Vector2(10, 1)
-
-[node name="Ground_F_2" parent="." unique_id=1151708799 instance=ExtResource("3_703nv")]
-position = Vector2(1781, 628)
-
-[node name="Ground_P_4" parent="." unique_id=603075016 instance=ExtResource("3_703nv")]
-position = Vector2(596.00006, 483)
-scale = Vector2(5, 1)
-
-[node name="Ground_P_5" parent="." unique_id=473936102 instance=ExtResource("3_703nv")]
-position = Vector2(1095, 483)
-scale = Vector2(8, 1)
-
-[node name="Ground_P_8" parent="." unique_id=894913734 instance=ExtResource("3_703nv")]
-position = Vector2(1700, 483)
-scale = Vector2(5, 1)
-
-[node name="Ground_P_7" parent="." unique_id=2079323390 instance=ExtResource("3_703nv")]
-position = Vector2(264, 483)
-scale = Vector2(3, 1)
-
-[node name="LevelObjective" type="TextEdit" parent="." unique_id=591409077]
-offset_left = 57.0
-offset_top = 349.0
-offset_right = 360.0
-offset_bottom = 384.0
-text = "Jump good practice but with DANGER!"
-
-[node name="LevelObjective2" type="TextEdit" parent="." unique_id=128485132]
-offset_left = 1147.0
-offset_top = 671.0
-offset_right = 1297.0
-offset_bottom = 706.0
-text = "Hah, you fell. ಠ⌣ಠ"
-
-[node name="LevelEnd" type="TextEdit" parent="." unique_id=5469685]
-offset_left = 1631.0
-offset_top = 516.0
-offset_right = 1792.0
-offset_bottom = 554.0
-text = "Keep Going. (°ロ°)☝"
-
 [node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_gff3n")]
 position = Vector2(920, 750)
 scale = Vector2(100, 1)
+
+[node name="Start" parent="." unique_id=1470424718 instance=ExtResource("1_1vin3")]
+position = Vector2(78, 380)
+
+[node name="Campos" parent="." unique_id=952399795 instance=ExtResource("2_f3lte")]
+position = Vector2(678, 190)
+
+[node name="Goal" parent="." unique_id=1634378711 instance=ExtResource("2_ojpmh")]
+position = Vector2(1146, 444)
+
+[node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("3_703nv")]
+position = Vector2(21, 363)
+scale = Vector2(1, 18)
+
+[node name="Ground_W_R_3" parent="." unique_id=1323924261 instance=ExtResource("3_703nv")]
+position = Vector2(1261, 361)
+scale = Vector2(1, 18)
+
+[node name="Ground_P_5" parent="." unique_id=1348498635 instance=ExtResource("3_703nv")]
+position = Vector2(547, 357)
+scale = Vector2(8, 1)
+
+[node name="Ground_P_8" parent="." unique_id=1709120753 instance=ExtResource("3_703nv")]
+position = Vector2(807, 357)
+scale = Vector2(5, 1)
+
+[node name="Ground_P_12" parent="." unique_id=644116827 instance=ExtResource("3_703nv")]
+position = Vector2(639, 297)
+scale = Vector2(1, 2)
+
+[node name="Ground_P_11" parent="." unique_id=693873029 instance=ExtResource("3_703nv")]
+position = Vector2(1055, 477)
+scale = Vector2(5, 1)
+
+[node name="Ground_P_7" parent="." unique_id=216681752 instance=ExtResource("3_703nv")]
+position = Vector2(170, 412)
+scale = Vector2(5, 1)
+
+[node name="LevelObjective" type="TextEdit" parent="." unique_id=434621396]
+offset_left = 76.0
+offset_top = 255.0
+offset_right = 239.0
+offset_bottom = 293.0
+text = "Jump gap practice."
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelEnd" type="TextEdit" parent="." unique_id=1947659586]
+offset_left = 1152.0
+offset_top = 360.0
+offset_right = 1208.0
+offset_bottom = 396.0
+text = "Nice."
+metadata/_edit_use_anchors_ = true
+
+[node name="Ground_P_9" parent="." unique_id=31122729 instance=ExtResource("3_703nv")]
+position = Vector2(641.00006, 700)
+scale = Vector2(30, 1)
+
+[node name="Ground_P_10" parent="." unique_id=2051624496 instance=ExtResource("3_703nv")]
+position = Vector2(638.00006, 21)
+scale = Vector2(30, 1)
