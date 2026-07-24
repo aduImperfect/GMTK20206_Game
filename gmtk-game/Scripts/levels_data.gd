@@ -35,6 +35,7 @@ static func _load_level_scenes() -> void:
 	dir.list_dir_end()
 
 	LEVEL_SCENES.sort()
+	print(LEVEL_SCENES)
 
 static func _set_values() -> void:
 	_load_level_scenes()

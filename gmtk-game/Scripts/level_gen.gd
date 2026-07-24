@@ -30,7 +30,9 @@ func _process(_delta: float) -> void:
 func _spawn_levels() -> void:
 	var j : int = 0
 	for k in LevelsDatabase.levelsCount:
+		print(LevelsDatabase.LEVEL_SCENES[k])
 		var level_instance = load(LevelsDatabase.LEVEL_SCENES[k]).instantiate()
+		print(level_instance)
 		level_instance.global_position.x = LevelsDatabase.xLevelCenter + (j * LevelsDatabase.xLevelOffset)
 		level_instance.global_position.y = LevelsDatabase.yLevelCenter + ((k % LevelsDatabase.maxHeight) * LevelsDatabase.yLevelOffset)
 		add_child(level_instance)

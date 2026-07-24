@@ -11,15 +11,15 @@
 [node name="Start" parent="." unique_id=1470424718 instance=ExtResource("3_xfk5q")]
 position = Vector2(73, 21)
 
-[node name="Goal2" parent="Start" unique_id=1634378711 instance=ExtResource("2_8ffim")]
-position = Vector2(1236, 462)
-
-[node name="Ground_P_9" parent="Start" unique_id=1751980 instance=ExtResource("1_vk57k")]
-position = Vector2(1045, 492)
-scale = Vector2(10, 1)
-
 [node name="Campos" parent="." unique_id=952399795 instance=ExtResource("4_ocwms")]
 position = Vector2(936, 182)
+
+[node name="Goal2" parent="." unique_id=1634378711 instance=ExtResource("2_8ffim")]
+position = Vector2(1309, 483)
+
+[node name="Ground_P_13" parent="." unique_id=1751980 instance=ExtResource("1_vk57k")]
+position = Vector2(1118, 513)
+scale = Vector2(10, 1)
 
 [node name="Ground_C_1" parent="." unique_id=1529564929 instance=ExtResource("1_vk57k")]
 position = Vector2(920, -132)

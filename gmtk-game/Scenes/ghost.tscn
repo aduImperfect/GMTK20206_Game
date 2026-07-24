@@ -1,10 +1,8 @@
-[gd_scene format=3 uid="uid://b8yhu52nr3g0d"]
+[gd_scene format=3 uid="uid://dayg74doc038k"]
 
-[ext_resource type="Script" uid="uid://bq3kmaox7nv52" path="res://Scripts/ghost.gd" id="1_ghost"]
-[ext_resource type="Texture2D" uid="uid://bkwjtfev52nch" path="res://Textures/Player0.png" id="2_e3r4w"]
+[ext_resource type="Texture2D" uid="uid://ba0snqtve3h1i" path="res://Textures/Player0.png" id="2_e3r4w"]
 
 [node name="Ghost" type="Node2D" unique_id=1955443560]
-script = ExtResource("1_ghost")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1610269828]
 modulate = Color(1, 1, 1, 0.35)
