@@ -19,6 +19,8 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.owner.name.contains("Player") == false:
 		return
 
+	(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[7]].get_child(0) as AudioStreamPlayer2D).play()
+
 	if body.ghost_frames.size() > 0:
 		PlayersHelper.record_ghost_run(body.player_id, body.run_start_global, body.ghost_frames)
 

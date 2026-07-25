@@ -8,6 +8,8 @@ enum AudioStyle {
 	SFX_CARD_CLOSEHAND, 
 	SFX_ARRIVED_GOAL, 
 	SFX_FORWARD_MOVE,
+	SFX_DEATH,
+	SFX_FORWARD_JUMP,
 	}
 
 static var AUDIO_SCENES : Array[String] = []

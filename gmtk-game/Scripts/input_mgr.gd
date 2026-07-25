@@ -196,6 +196,7 @@ func _physics_process(_delta: float) -> void:
 			velocity.y = -(InputsData.max_jump_speed)
 			action_in_progress = true
 		elif is_jumping_forward and not action_in_progress:
+			(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[8]].get_child(0) as AudioStreamPlayer2D).play()
 			velocity.y = -(InputsData.max_jump_speed)
 			velocity.x = (InputsData.max_move_speed / 4)
 			#is_moving_forward = true
