@@ -99,6 +99,16 @@ static func _level_switcher(newLevelNum : int = -1) -> void:
 		PlayersHelper.playerNodes[k].get_child(0).position = Vector2(0.0, 0.0)
 		PlayersHelper.playerNodes[k].global_position = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(0).global_position
 		PlayersHelper.playerNodes[k].get_child(0)._start_new_run()
+		PlayersHelper.playerNodes[k].get_child(0).is_moving_forward = false
+		PlayersHelper.playerNodes[k].get_child(0).is_moving_backward = false
+		PlayersHelper.playerNodes[k].get_child(0).is_jumping_upward = false
+		PlayersHelper.playerNodes[k].get_child(0).is_jumping_forward = false
+		PlayersHelper.playerNodes[k].get_child(0).is_speeding_up = false
+		PlayersHelper.playerNodes[k].get_child(0).is_speeding_down = false
+		PlayersHelper.playerNodes[k].get_child(0).is_stopping = false
+		PlayersHelper.playerNodes[k].get_child(0).action_in_progress = false
+		InputsData.move_speed = 0.0
+		
 
 	CardsHelper._level_switching_values()
 
