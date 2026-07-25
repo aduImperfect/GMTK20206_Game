@@ -17,7 +17,10 @@ move_left_action = "ui_left_p0"
 move_right_action = "ui_right_p0"
 cancel_action = "ui_cancel_p0"
 lerpEnd = 1.0
-initializationAccumulationTime = 0.08774777777736742
+wallHit = null
+wallBounce = null
+wallHitDuration = null
+wallHitTimer = null
 initializationAccumulationTimer = 0.25
 
 [node name="PlayerCS2D" type="CollisionShape2D" parent="PlayerCB2D" unique_id=2060292915]

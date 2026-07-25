@@ -42,6 +42,11 @@ var move_timer : float = 0.0
 @export var lerpEnd : float = 0.0
 @export var lerpTVal : float = 0.0
 
+@export var wallHit : bool = false
+@export var wallBounce : float = 500.0
+@export var wallHitDuration : float = 0.0
+@export var wallHitTimer : float = 0.0
+
 # --- Ghost recording ---
 var ghost_frames : PackedVector2Array = PackedVector2Array()
 var run_start_global : Vector2 = Vector2.ZERO
@@ -61,6 +66,10 @@ func _ready() -> void:
 	lerpStart = 0.0
 	lerpEnd = 1.0
 	lerpTVal = 0.0
+	wallHit = false
+	wallBounce = 100.0
+	wallHitDuration = 0.0
+	wallHitTimer = 0.5
 
 func _initialize() -> void:
 	#If first time consideration of initialization from code needs to be given priority!
@@ -126,6 +135,16 @@ func _process(_delta: float) -> void:
 	if LevelsDatabase.currLevel == LevelsDatabase.levelsCount:
 		return
 
+	if wallHit:
+		position.x -= _delta * wallBounce
+		wallHitDuration += _delta
+		if wallHitDuration > wallHitTimer:
+			wallHitDuration = 0.0
+			wallHit = false
+			old_position = position
+			new_position = position
+
+
 	if is_on_ceiling():
 		move_timer = 0.0
 		lerpTVal = 0.0
@@ -141,8 +160,8 @@ func _process(_delta: float) -> void:
 		is_moving_forward = false
 		action_in_progress = false
 		long_press_triggered = false
-		old_position = position
-		new_position = position
+		#position.x = position.x - 50.0
+		wallHit = true
 
 	if is_moving_forward and not action_in_progress:
 		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[6]].get_child(0) as AudioStreamPlayer2D).play()
