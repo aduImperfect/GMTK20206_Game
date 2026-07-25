@@ -101,7 +101,7 @@ func _initialize() -> void:
 		initializationCommplete = true
 		SaveLoadHelper.save_game()
 	
-	#(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[0]].get_child(0) as AudioStreamPlayer2D).play()
+	(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[0]].get_child(0) as AudioStreamPlayer2D).play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
