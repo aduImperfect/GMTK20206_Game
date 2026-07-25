@@ -196,8 +196,9 @@ func _physics_process(_delta: float) -> void:
 			action_in_progress = true
 		elif is_jumping_forward and not action_in_progress:
 			velocity.y = -(InputsData.max_jump_speed)
-			is_moving_forward = true
-			InputsData.move_speed = InputsData.max_move_speed
+			velocity.x = (InputsData.max_move_speed / 2)
+			#is_moving_forward = true
+			#InputsData.move_speed = InputsData.max_move_speed
 			action_in_progress = true
 		else:
 			grounded = true
