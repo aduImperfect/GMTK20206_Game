@@ -100,8 +100,9 @@ func _initialize() -> void:
 	if player_id == (PlayersHelper.playersCount - 1):
 		initializationCommplete = true
 		SaveLoadHelper.save_game()
-	
-	(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[0]].get_child(0) as AudioStreamPlayer2D).play()
+		if AudioDatabase.audio_styles_list_sttc.size() != 0:
+			(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[0]].get_child(0) as AudioStreamPlayer2D).play()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -124,6 +125,24 @@ func _process(_delta: float) -> void:
 
 	if LevelsDatabase.currLevel == LevelsDatabase.levelsCount:
 		return
+
+	if is_on_ceiling():
+		move_timer = 0.0
+		lerpTVal = 0.0
+		is_moving_forward = false
+		action_in_progress = false
+		long_press_triggered = false
+		old_position = position
+		new_position = position
+
+	if is_on_wall():
+		move_timer = 0.0
+		lerpTVal = 0.0
+		is_moving_forward = false
+		action_in_progress = false
+		long_press_triggered = false
+		old_position = position
+		new_position = position
 
 	if is_moving_forward and not action_in_progress:
 		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[6]].get_child(0) as AudioStreamPlayer2D).play()
@@ -220,8 +239,8 @@ func _physics_process(_delta: float) -> void:
 		velocity.x = 0.0
 
 	if not is_on_floor():
-		#Gravity fall! Times 2!
-		velocity.y += gravity * _delta * 2
+		#Gravity fall!
+		velocity.y += gravity * _delta * 10.0
 
 	if is_moving_forward && action_in_progress:
 		lerpTVal += _delta * InputsData.max_move_speed

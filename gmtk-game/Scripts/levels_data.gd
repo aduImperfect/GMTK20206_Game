@@ -106,7 +106,12 @@ static func _level_switcher(newLevelNum : int = -1) -> void:
 		PlayersHelper.playerNodes[k].get_child(0).is_speeding_up = false
 		PlayersHelper.playerNodes[k].get_child(0).is_speeding_down = false
 		PlayersHelper.playerNodes[k].get_child(0).is_stopping = false
+		PlayersHelper.playerNodes[k].get_child(0).long_press_triggered = false
 		PlayersHelper.playerNodes[k].get_child(0).action_in_progress = false
+		PlayersHelper.playerNodes[k].get_child(0).move_timer = 0.0
+		PlayersHelper.playerNodes[k].get_child(0).lerpTVal = 0.0
+		PlayersHelper.playerNodes[k].get_child(0).old_position = PlayersHelper.playerNodes[k].get_child(0).position
+		PlayersHelper.playerNodes[k].get_child(0).new_position = PlayersHelper.playerNodes[k].get_child(0).position
 		InputsData.move_speed = 0.0
 
 	CardsHelper._level_switching_values()

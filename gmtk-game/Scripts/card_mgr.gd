@@ -37,14 +37,14 @@ func _draw_starting_hand() -> void:
 		k += 1
 
 	print(CardsHelper.handNodes)
-	print("Current level: ", LevelsDatabase.currLevel)
+	#print("Current level: ", LevelsDatabase.currLevel)
 
-	print("CardsHelper.handLimits[" + str(LevelsDatabase.currLevel) +  "]: ", CardsHelper.handLimits[LevelsDatabase.currLevel])
+	#print("CardsHelper.handLimits[" + str(LevelsDatabase.currLevel) +  "]: ", CardsHelper.handLimits[LevelsDatabase.currLevel])
 
 	for j in CardsHelper.handNodes.size():
 		CardsHelper.handNodes[j].get_child(0).zIndex = -100
 		CardsHelper.handNodes[j].get_child(0).cardHandPosition = Vector2(CardsHelper.xCardCenter + (j * CardsHelper.xCardOffset), CardsHelper.yCardCenter)
-		print("CardsHelper.handLimits[" + str(LevelsDatabase.currLevel) +  "][" + str(j) + "]: ", CardsHelper.handLimits[LevelsDatabase.currLevel][j])
+		#print("CardsHelper.handLimits[" + str(LevelsDatabase.currLevel) +  "][" + str(j) + "]: ", CardsHelper.handLimits[LevelsDatabase.currLevel][j])
 		CardsHelper.handNodes[j].get_child(0).cardTypeVal = CardsHelper.handLimits[LevelsDatabase.currLevel][j]
 
 	(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[3]].get_child(0) as AudioStreamPlayer2D).play()
@@ -63,7 +63,7 @@ func _return_to_deck() -> void:
 	(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[4]].get_child(0) as AudioStreamPlayer2D).play()
 
 func _update_card_state() -> void:
-	print("Current Hand Card Index: ", InputsData.curr_input_card_index)
+	#print("Current Hand Card Index: ", InputsData.curr_input_card_index)
 
 	#Reset all cards to unselected and unhighlighted state except current one!
 	for k in CardsHelper.handNodes.size():
@@ -83,7 +83,7 @@ func _update_card_state() -> void:
 		return
 
 	InputsData.curr_input_card_value = CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).cardTypeVal
-	print("Current Hand Card Value: ", InputsData.curr_input_card_value)
+	#print("Current Hand Card Value: ", InputsData.curr_input_card_value)
 
 	CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).normal_state = false
 	CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).highlighted_state = !InputsData.curr_input_card_selected

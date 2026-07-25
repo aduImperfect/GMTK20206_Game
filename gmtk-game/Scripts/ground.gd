@@ -11,11 +11,19 @@ func _process(_delta: float) -> void:
 	if initial_setup == false:
 		initial_setup = true
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(_body: Node2D) -> void:
 	if LevelsDatabase.currLevel >= LevelsDatabase.levelsCount:
 		return
 
-	for k in PlayersHelper.playerNodes.size():
-		if body.owner.name == PlayersHelper.playerNodes[k].name:
-			#print("Goal at: " + owner.owner.name + " reached by Player: " + body.owner.name)
-			break
+	#for k in PlayersHelper.playerNodes.size():
+		#if body.owner.name == PlayersHelper.playerNodes[k].name:
+			##print("Goal at: " + owner.owner.name + " reached by Player: " + body.owner.name)
+			#if body.is_moving_forward && body.action_in_progress:
+				#body.move_timer = 0.0
+				#body.lerpTVal = 0.0
+				#body.is_moving_forward = false
+				#body.action_in_progress = false
+				#body.long_press_triggered = false
+				#body.old_position = body.position
+				#body.new_position = body.position
+				#break
