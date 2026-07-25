@@ -12,6 +12,7 @@ func _ready() -> void:
 		AudioDatabase._inital_volume_values()
 
 	_spawn_audio()
+	AudioDatabase.audioMgrNode = self
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

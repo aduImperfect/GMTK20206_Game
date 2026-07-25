@@ -15,6 +15,6 @@ script = ExtResource("4_jjvhh")
 
 [node name="AudioMgr" type="Node2D" parent="." unique_id=562412432]
 script = ExtResource("2_8gbba")
-audio_styles_list = Array[int]([0, 2, 2])
+audio_styles_list = Array[int]([0, 1, 2])
 
 [node name="SinglePlayerMode" parent="." unique_id=1264525211 instance=ExtResource("2_bo1nx")]

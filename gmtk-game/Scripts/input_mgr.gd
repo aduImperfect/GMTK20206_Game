@@ -88,6 +88,8 @@ func _initialize() -> void:
 	if player_id == (PlayersHelper.playersCount - 1):
 		initializationCommplete = true
 		SaveLoadHelper.save_game()
+	
+	(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[0]].get_child(0) as AudioStreamPlayer2D).play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -228,12 +230,12 @@ func _input(_event: InputEvent) -> void:
 
 	# Detect the exact frame the button is first pressed down
 	if _event.is_action_pressed(select_action):
+		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[2]].get_child(0) as AudioStreamPlayer2D).play()
 		is_holding = true
 		hold_timer = 0.0
 		long_press_triggered = false
 	# Detect when the button is released
 	elif _event.is_action_released(select_action):
-		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[2]].get_child(0) as AudioStreamPlayer2D).play()
 		InputsData.curr_input_card_selected = false
 		InputsData.curr_input_card_selection_complete = false
 		is_holding = false
