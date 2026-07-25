@@ -25,13 +25,11 @@ static var current_player_input_text : String
 # Tracks the active input device
 static var is_using_gamepad: bool
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+static var curr_input_card_value : CardType.CARD_TYPE_ENUM
+static var curr_input_card_index : int
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+static var curr_input_card_selected : bool
+static var curr_input_card_selection_complete : bool
 
 static func _set_initial_values() -> void:
 	jump_speed = 0.0
@@ -54,6 +52,11 @@ static func _set_initial_values() -> void:
 
 	current_player_input_text = ""
 	is_using_gamepad = false
+
+	curr_input_card_value = CardType.CARD_TYPE_ENUM.BACKSIDE
+	curr_input_card_index = -1
+	curr_input_card_selected = false
+	curr_input_card_selection_complete = false
 
 static func _reset_values() -> void:
 	print("--------------------")
@@ -95,5 +98,11 @@ static func _reset_values() -> void:
 	#begin delay has not been set to false here ON PURPOSE. DO NOT ADD IT HERE as it will break level switching reset of data!
 	delayed_reset_max = 1.0
 	delayed_reset_acc = 0.0
+
+	curr_input_card_value = CardType.CARD_TYPE_ENUM.BACKSIDE
+	curr_input_card_index = -1
+	curr_input_card_selected = false
+	curr_input_card_selection_complete = false
+	
 
 	print("--------------------")

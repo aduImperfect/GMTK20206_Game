@@ -6,7 +6,7 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	initialDelayAccumulation = 0.0
-	initialDelayMax = 2.0
+	initialDelayMax = 0.1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -24,6 +24,8 @@ func _process(_delta: float) -> void:
 			initialDelayAccumulation = 0.0
 			_draw_starting_hand()
 			CardsHelper.cardLevelOpenInit = true
+
+	_update_card_state()
 
 func _draw_starting_hand() -> void:
 	#Get current hand size!
@@ -55,3 +57,27 @@ func _return_to_deck() -> void:
 		CardsHelper.deckNodes[j].get_child(0).cardTypeVal = CardType.CARD_TYPE_ENUM.BACKSIDE
 		CardsHelper.deckNodes[j].get_child(0).zIndex = -500 + (j * 10)
 		CardsHelper.deckNodes[j].get_child(0).lerped = false
+
+func _update_card_state() -> void:
+	print("Current Hand Card Index: ", InputsData.curr_input_card_index)
+
+	#Reset all cards to unselected and unhighlighted state except current one!
+	for k in CardsHelper.handNodes.size():
+		if k == InputsData.curr_input_card_index:
+			continue
+		CardsHelper.handNodes[k].get_child(0).normal_state = true
+		CardsHelper.handNodes[k].get_child(0).highlighted_state = false
+		CardsHelper.handNodes[k].get_child(0).selected_state = false
+
+	if InputsData.curr_input_card_index < 0:
+		return
+
+	if InputsData.curr_input_card_index >= CardsHelper.handLimits[LevelsDatabase.currLevel].size():
+		return
+
+	InputsData.curr_input_card_value = CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).cardTypeVal
+	print("Current Hand Card Value: ", InputsData.curr_input_card_value)
+
+	CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).normal_state = false
+	CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).highlighted_state = !InputsData.curr_input_card_selected
+	CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).selected_state = InputsData.curr_input_card_selected

@@ -12,6 +12,12 @@ extends Sprite2D
 @export var lerped : bool
 @export var revLerp : bool
 
+@export var normal_state : bool
+@export var highlighted_state : bool
+@export var selected_state : bool
+
+@export var selectedDelayAccumulation : float
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	cardSpeed = 1.0
@@ -20,6 +26,10 @@ func _ready() -> void:
 	lerpVal = 0.0
 	lerped = false
 	revLerp = false
+	normal_state = true
+	highlighted_state = false
+	selected_state = false
+	selectedDelayAccumulation = 0.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -27,6 +37,16 @@ func _process(_delta: float) -> void:
 		return
 
 	texture = CardsHelper.cardTextures[int(cardTypeVal)]
+
+	if normal_state:
+		self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+	if highlighted_state:
+		self_modulate = Color(2.0, 2.0, 0.0, 1.0)
+
+	if selected_state:
+		self_modulate = Color(2.0, 2.0, selectedDelayAccumulation, 1.0)
+
 	z_index = zIndex
 
 	if cardHandPosition.is_equal_approx(global_position):

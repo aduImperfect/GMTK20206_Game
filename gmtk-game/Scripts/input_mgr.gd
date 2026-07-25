@@ -4,8 +4,15 @@ extends CharacterBody2D
 
 @export var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@export var is_moving : bool = false
-@export var is_jumping : bool = false
+@export var is_moving_forward : bool = false
+@export var is_moving_backward : bool = false
+@export var is_jumping_upward : bool = false
+@export var is_jumping_forward : bool = false
+@export var is_speeding_up : bool = false
+@export var is_speeding_down : bool = false
+@export var is_stopping : bool = false
+@export var action_in_progress : bool = false
+
 @export var grounded : bool = true
 @export var is_running : bool = true
 
@@ -14,10 +21,19 @@ extends CharacterBody2D
 # Export this variable to change it in the Inspector for each player node
 @export var player_id: int = 0
 
-@export var jump_action: String
+@export var select_action: String
 @export var move_left_action: String
 @export var move_right_action: String
-@export var run_action: String
+@export var cancel_action: String
+
+# Time in seconds required to trigger a long press
+@export var hold_duration: float = 2.0
+var hold_timer: float = 0.0
+var is_holding: bool = false
+var long_press_triggered: bool = false
+
+@export var move_duration : float = 2.0
+var move_timer : float = 0.0
 
 # --- Ghost recording ---
 var ghost_frames : PackedVector2Array = PackedVector2Array()
@@ -32,6 +48,7 @@ func _ready() -> void:
 	initializationAccumulationTime = 0.0
 	initializationAccumulationTimer = 0.25
 	initializationCommplete = false
+	move_duration = 0.2
 
 func _initialize() -> void:
 	#If first time consideration of initialization from code needs to be given priority!
@@ -49,14 +66,20 @@ func _initialize() -> void:
 		else:
 			CameraHelper._set_initial_camera_values_sp()
 
-	is_moving = false
-	is_jumping = false
+	is_moving_forward = false
+	is_moving_backward = false
+	is_jumping_upward = false
+	is_jumping_forward = false
+	is_speeding_up = false
+	is_speeding_down = false
+	is_stopping = false
+
 	grounded = true
 
-	jump_action = "ui_jump_p" + str(player_id)
+	select_action = "ui_select_p" + str(player_id)
 	move_left_action = "ui_left_p" + str(player_id)
 	move_right_action = "ui_right_p" + str(player_id)
-	run_action = "ui_run_p" + str(player_id)
+	cancel_action = "ui_cancel_p" + str(player_id)
 
 	_add_input_actions_for_this_player()
 	_start_new_run()
@@ -88,23 +111,52 @@ func _process(_delta: float) -> void:
 	if LevelsDatabase.currLevel == LevelsDatabase.levelsCount:
 		return
 
-	if not is_moving:
-		if InputsData.move_speed < -InputsData.move_speed_min_diff:
-			InputsData.move_speed += _delta * InputsData.move_speed_dec
-		elif InputsData.move_speed > InputsData.move_speed_min_diff:
+	if is_moving_forward && action_in_progress:
+		move_timer += _delta
+		if move_timer > move_duration:
+			move_timer = 0.0
+			is_moving_forward = false
+	elif action_in_progress:
+		if InputsData.move_speed > InputsData.move_speed_min_diff:
 			InputsData.move_speed -= _delta * InputsData.move_speed_dec
 		else:
 			InputsData.move_speed = InputsData.min_move_speed
+			action_in_progress = false
+			long_press_triggered = false
 
-	if is_jumping and grounded:
+	if is_moving_backward && action_in_progress:
+		move_timer += _delta
+		if move_timer > move_duration:
+			move_timer = 0.0
+			is_moving_backward = false
+	elif action_in_progress:
+		if InputsData.move_speed < -InputsData.move_speed_min_diff:
+			InputsData.move_speed += _delta * InputsData.move_speed_dec
+		else:
+			InputsData.move_speed = InputsData.min_move_speed
+			action_in_progress = false
+			long_press_triggered = false
+
+	if (is_jumping_upward or is_jumping_forward) and grounded and action_in_progress:
 		InputsData.jump_speed = InputsData.max_jump_speed
 		grounded = false
-	elif not grounded:
+	elif not grounded and action_in_progress:
 		if InputsData.jump_speed > InputsData.jump_speed_min_diff:
 			InputsData.jump_speed -= _delta * InputsData.jump_speed_dec
 		else:
 			InputsData.jump_speed = InputsData.min_jump_speed
+			action_in_progress = false
+			long_press_triggered = false
 
+	#Long Press Action!
+	if is_holding and not long_press_triggered:
+		hold_timer += _delta
+		CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).selectedDelayAccumulation = hold_timer
+		InputsData.curr_input_card_selected = true
+		if hold_timer >= hold_duration:
+			InputsData.curr_input_card_selection_complete = true
+			long_press_triggered = true
+			_on_long_press()
 
 func _physics_process(_delta: float) -> void:
 	if initializationCommplete == false:
@@ -113,37 +165,31 @@ func _physics_process(_delta: float) -> void:
 	if text_edit_input:
 		return
 
-	if Input.is_action_pressed(move_left_action):
-		InputsData.move_speed = -InputsData.max_move_speed
-		is_moving = true
-	elif Input.is_action_pressed(move_right_action):
+	if is_moving_forward and not action_in_progress:
 		InputsData.move_speed = InputsData.max_move_speed
-		is_moving = true
-	else:
-		is_moving = false
+		action_in_progress = true
+	elif is_moving_backward and not action_in_progress:
+		InputsData.move_speed = -InputsData.max_move_speed
+		action_in_progress = true
 
-	if Input.is_action_pressed(jump_action):
-		is_jumping = true
-	else:
-		is_jumping = false
-
-	if Input.is_action_pressed(run_action):
-		if is_moving:
-			if InputsData.move_speed < 0.0:
-				InputsData.move_speed = -InputsData.max_run_speed
-			elif InputsData.move_speed > 0.0:
-				InputsData.move_speed = InputsData.max_run_speed
-			is_running = true
-		else:
-			is_running = false
-	else:
-		is_running = false
+	#CANCEL ACTION!
+	#if Input.is_action_pressed(cancel_action):
+		#if is_moving:
+			#if InputsData.move_speed < 0.0:
+				#InputsData.move_speed = -InputsData.max_run_speed
+			#elif InputsData.move_speed > 0.0:
+				#InputsData.move_speed = InputsData.max_run_speed
+			#is_running = true
+		#else:
+			#is_running = false
+	#else:
+		#is_running = false
 
 	position.x += _delta * InputsData.move_speed
 	position.y -= _delta * InputsData.jump_speed
 
 	if is_on_floor():
-		if is_jumping:
+		if is_jumping_upward:
 			velocity.y = -(InputsData.max_jump_speed)
 			pass
 		else:
@@ -159,6 +205,9 @@ func _physics_process(_delta: float) -> void:
 	ghost_frames.append(position)
 
 func _input(_event: InputEvent) -> void:
+	if initializationCommplete == false:
+		return
+
 	if _event.is_pressed():
 		InputsData.current_player_input_text = _event.as_text()
 
@@ -172,6 +221,38 @@ func _input(_event: InputEvent) -> void:
 		if not InputsData.is_using_gamepad:
 			InputsData.is_using_gamepad = true
 			#print("Switched to Controller")
+
+	# Detect the exact frame the button is first pressed down
+	if _event.is_action_pressed(select_action):
+		is_holding = true
+		hold_timer = 0.0
+		long_press_triggered = false
+	# Detect when the button is released
+	elif _event.is_action_released(select_action):
+		InputsData.curr_input_card_selected = false
+		InputsData.curr_input_card_selection_complete = false
+		is_holding = false
+		# Optional: Trigger a normal "tap" action if released before the threshold
+		if not long_press_triggered:
+			_on_short_press()
+
+	#Highlight the left card index.
+	if _event.is_action_pressed(move_left_action):
+		if InputsData.curr_input_card_index < 0:
+			InputsData.curr_input_card_index = 0
+		else:
+			InputsData.curr_input_card_index -= 1
+
+	#Highlight the right card index.
+	if _event.is_action_pressed(move_right_action):
+		if InputsData.curr_input_card_index > (CardsHelper.handLimits[LevelsDatabase.currLevel].size() - 1):
+			InputsData.curr_input_card_index = (CardsHelper.handLimits[LevelsDatabase.currLevel].size() - 1)
+		else:
+			InputsData.curr_input_card_index += 1
+
+	#Deselect all cards (helps see cards in unhighlighted mode if required for example)
+	if _event.is_action_pressed(cancel_action):
+		InputsData.curr_input_card_index = -1
 
 func is_any_text_focused(node: Node) -> bool:
 	if node is TextEdit or node is LineEdit:
@@ -195,26 +276,44 @@ func _start_new_run() -> void:
 	ghost_frames = PackedVector2Array()
 	run_start_global = owner.global_position
 
+func _on_short_press() -> void:
+	print("Short press detected!")
+
+func _on_long_press() -> void:
+	print("Long press successfully triggered!")
+	if InputsData.curr_input_card_value == CardType.CARD_TYPE_ENUM.MOVE_FORWARD:
+		is_moving_forward = true
+	elif InputsData.curr_input_card_value == CardType.CARD_TYPE_ENUM.MOVE_BACKWARD:
+		is_moving_backward = true
+	elif InputsData.curr_input_card_value == CardType.CARD_TYPE_ENUM.JUMP_UPWARD:
+		is_jumping_upward = true
+	elif InputsData.curr_input_card_value == CardType.CARD_TYPE_ENUM.JUMP_FORWARD:
+		is_jumping_forward = true
+	elif InputsData.curr_input_card_value == CardType.CARD_TYPE_ENUM.SPEED_UP:
+		is_speeding_up = true
+	elif InputsData.curr_input_card_value == CardType.CARD_TYPE_ENUM.SPEED_DOWN:
+		is_speeding_down = true
+	elif InputsData.curr_input_card_value == CardType.CARD_TYPE_ENUM.STOP:
+		is_stopping = true
+	action_in_progress = false
+
 func _add_input_actions_for_this_player() -> void:
 	# If its the last player - set the actions to be tied to keyboard!
 	if player_id == (PlayersHelper.playersCount - 1):
-		if not InputMap.has_action(jump_action):
-			InputMap.add_action(jump_action)
-			InputMap.action_set_deadzone(jump_action, 0.2)
+		if not InputMap.has_action(select_action):
+			InputMap.add_action(select_action)
+			InputMap.action_set_deadzone(select_action, 0.2)
 			var eventAction1 = InputEventJoypadButton.new()
-			eventAction1.button_index = JoyButton.JOY_BUTTON_DPAD_UP
+			eventAction1.button_index = JoyButton.JOY_BUTTON_A
 			eventAction1.device = player_id
-			InputMap.action_add_event(jump_action, eventAction1)
-			var eventAction2 = InputEventJoypadButton.new()
-			eventAction2.button_index = JoyButton.JOY_BUTTON_A
+			InputMap.action_add_event(select_action, eventAction1)
+			var eventAction2 = InputEventJoypadMotion.new()
+			eventAction2.axis = JoyAxis.JOY_AXIS_TRIGGER_RIGHT
 			eventAction2.device = player_id
-			InputMap.action_add_event(jump_action, eventAction2)
+			InputMap.action_add_event(select_action, eventAction2)
 			var eventAction3 = InputEventKey.new()
 			eventAction3.keycode = Key.KEY_SPACE
-			InputMap.action_add_event(jump_action, eventAction3)
-			var eventAction4 = InputEventKey.new()
-			eventAction4.keycode = Key.KEY_UP
-			InputMap.action_add_event(jump_action, eventAction4)
+			InputMap.action_add_event(select_action, eventAction3)
 		if not InputMap.has_action(move_left_action):
 			InputMap.add_action(move_left_action)
 			InputMap.action_set_deadzone(move_left_action, 0.2)
@@ -251,33 +350,29 @@ func _add_input_actions_for_this_player() -> void:
 			var eventAction4 = InputEventKey.new()
 			eventAction4.keycode = Key.KEY_D
 			InputMap.action_add_event(move_right_action, eventAction4)
-		if not InputMap.has_action(run_action):
-			InputMap.add_action(run_action)
-			InputMap.action_set_deadzone(run_action, 0.2)
+		if not InputMap.has_action(cancel_action):
+			InputMap.add_action(cancel_action)
+			InputMap.action_set_deadzone(cancel_action, 0.2)
 			var eventAction1 = InputEventJoypadButton.new()
-			eventAction1.button_index = JoyButton.JOY_BUTTON_X
+			eventAction1.button_index = JoyButton.JOY_BUTTON_B
 			eventAction1.device = player_id
-			InputMap.action_add_event(run_action, eventAction1)
+			InputMap.action_add_event(cancel_action, eventAction1)
+			var eventAction2 = InputEventKey.new()
+			eventAction2.keycode = Key.KEY_ESCAPE
+			InputMap.action_add_event(cancel_action, eventAction2)
+	else:
+	# Otherwise, set the actions tied to the joypad accordingly!
+		if not InputMap.has_action(select_action):
+			InputMap.add_action(select_action)
+			InputMap.action_set_deadzone(select_action, 0.2)
+			var eventAction1 = InputEventJoypadButton.new()
+			eventAction1.button_index = JoyButton.JOY_BUTTON_A
+			eventAction1.device = player_id
+			InputMap.action_add_event(select_action, eventAction1)
 			var eventAction2 = InputEventJoypadMotion.new()
 			eventAction2.axis = JoyAxis.JOY_AXIS_TRIGGER_RIGHT
 			eventAction2.device = player_id
-			InputMap.action_add_event(run_action, eventAction2)
-			var eventAction3 = InputEventKey.new()
-			eventAction3.keycode = Key.KEY_SHIFT
-			InputMap.action_add_event(run_action, eventAction3)
-	else:
-	# Otherwise, set the actions tied to the joypad accordingly!
-		if not InputMap.has_action(jump_action):
-			InputMap.add_action(jump_action)
-			InputMap.action_set_deadzone(jump_action, 0.2)
-			var eventAction1 = InputEventJoypadButton.new()
-			eventAction1.button_index = JoyButton.JOY_BUTTON_DPAD_UP
-			eventAction1.device = player_id
-			InputMap.action_add_event(jump_action, eventAction1)
-			var eventAction2 = InputEventJoypadButton.new()
-			eventAction2.button_index = JoyButton.JOY_BUTTON_A
-			eventAction2.device = player_id
-			InputMap.action_add_event(jump_action, eventAction2)
+			InputMap.action_add_event(select_action, eventAction2)
 		if not InputMap.has_action(move_left_action):
 			InputMap.add_action(move_left_action)
 			InputMap.action_set_deadzone(move_left_action, 0.2)
@@ -302,14 +397,10 @@ func _add_input_actions_for_this_player() -> void:
 			eventAction2.axis_value = 1
 			eventAction2.device = player_id
 			InputMap.action_add_event(move_right_action, eventAction2)
-		if not InputMap.has_action(run_action):
-			InputMap.add_action(run_action)
-			InputMap.action_set_deadzone(run_action, 0.2)
+		if not InputMap.has_action(cancel_action):
+			InputMap.add_action(cancel_action)
+			InputMap.action_set_deadzone(cancel_action, 0.2)
 			var eventAction1 = InputEventJoypadButton.new()
-			eventAction1.button_index = JoyButton.JOY_BUTTON_X
+			eventAction1.button_index = JoyButton.JOY_BUTTON_B
 			eventAction1.device = player_id
-			InputMap.action_add_event(run_action, eventAction1)
-			var eventAction2 = InputEventJoypadMotion.new()
-			eventAction2.axis = JoyAxis.JOY_AXIS_TRIGGER_RIGHT
-			eventAction2.device = player_id
-			InputMap.action_add_event(run_action, eventAction2)
+			InputMap.action_add_event(cancel_action, eventAction1)
