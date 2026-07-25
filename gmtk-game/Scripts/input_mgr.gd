@@ -26,6 +26,9 @@ extends CharacterBody2D
 @export var move_right_action: String
 @export var cancel_action: String
 
+@export var old_position : Vector2
+@export var new_position : Vector2
+
 # Time in seconds required to trigger a long press
 @export var hold_duration: float = 1.2
 var hold_timer: float = 0.0
@@ -34,6 +37,10 @@ var long_press_triggered: bool = false
 
 @export var move_duration : float = 2.0
 var move_timer : float = 0.0
+
+@export var lerpStart : float = 0.0
+@export var lerpEnd : float = 0.0
+@export var lerpTVal : float = 0.0
 
 # --- Ghost recording ---
 var ghost_frames : PackedVector2Array = PackedVector2Array()
@@ -48,7 +55,12 @@ func _ready() -> void:
 	initializationAccumulationTime = 0.0
 	initializationAccumulationTimer = 0.25
 	initializationCommplete = false
-	move_duration = 0.2
+	move_duration = 2.0
+	old_position = position
+	new_position = position
+	lerpStart = 0.0
+	lerpEnd = 1.0
+	lerpTVal = 0.0
 
 func _initialize() -> void:
 	#If first time consideration of initialization from code needs to be given priority!
@@ -113,31 +125,54 @@ func _process(_delta: float) -> void:
 	if LevelsDatabase.currLevel == LevelsDatabase.levelsCount:
 		return
 
+	if is_moving_forward and not action_in_progress:
+		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[6]].get_child(0) as AudioStreamPlayer2D).play()
+		old_position = position
+		new_position = position + Vector2(InputsData.move_distance, 0.0)
+		action_in_progress = true
+	elif is_moving_backward and not action_in_progress:
+		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[6]].get_child(0) as AudioStreamPlayer2D).play()
+		old_position = position
+		new_position = position - Vector2(InputsData.move_distance, 0.0)
+		action_in_progress = true
+
 	if is_moving_forward && action_in_progress:
 		move_timer += _delta
 		if move_timer > move_duration:
 			move_timer = 0.0
+			lerpTVal = 0.0
 			is_moving_forward = false
-	elif action_in_progress:
-		if InputsData.move_speed > InputsData.move_speed_min_diff:
-			InputsData.move_speed -= _delta * InputsData.move_speed_dec
-		else:
-			InputsData.move_speed = InputsData.min_move_speed
 			action_in_progress = false
 			long_press_triggered = false
+			old_position = position
+			new_position = position
+		elif position.x >= new_position.x:
+			move_timer = 0.0
+			lerpTVal = 0.0
+			is_moving_forward = false
+			action_in_progress = false
+			long_press_triggered = false
+			old_position = position
+			new_position = position
 
 	if is_moving_backward && action_in_progress:
 		move_timer += _delta
 		if move_timer > move_duration:
 			move_timer = 0.0
+			lerpTVal = 0.0
 			is_moving_backward = false
-	elif action_in_progress:
-		if InputsData.move_speed < -InputsData.move_speed_min_diff:
-			InputsData.move_speed += _delta * InputsData.move_speed_dec
-		else:
-			InputsData.move_speed = InputsData.min_move_speed
 			action_in_progress = false
 			long_press_triggered = false
+			old_position = position
+			new_position = position
+		elif position.x <= new_position.x:
+			move_timer = 0.0
+			lerpTVal = 0.0
+			is_moving_backward = false
+			action_in_progress = false
+			long_press_triggered = false
+			old_position = position
+			new_position = position
 
 	if (is_jumping_upward or is_jumping_forward) and grounded and action_in_progress:
 		InputsData.jump_speed = InputsData.max_jump_speed
@@ -157,6 +192,8 @@ func _process(_delta: float) -> void:
 		InputsData.curr_input_card_selected = true
 		if hold_timer >= hold_duration:
 			InputsData.curr_input_card_selection_complete = true
+			is_holding = false
+			hold_timer = 0.0
 			long_press_triggered = true
 			_on_long_press()
 
@@ -167,29 +204,18 @@ func _physics_process(_delta: float) -> void:
 	if text_edit_input:
 		return
 
-	if is_moving_forward and not action_in_progress:
-		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[6]].get_child(0) as AudioStreamPlayer2D).play()
-		InputsData.move_speed = InputsData.max_move_speed
-		action_in_progress = true
-	elif is_moving_backward and not action_in_progress:
-		InputsData.move_speed = -InputsData.max_move_speed
-		action_in_progress = true
+	#position.x += _delta * InputsData.move_speed
+	#position.y -= _delta * InputsData.jump_speed
 
-	#CANCEL ACTION!
-	#if Input.is_action_pressed(cancel_action):
-		#if is_moving:
-			#if InputsData.move_speed < 0.0:
-				#InputsData.move_speed = -InputsData.max_run_speed
-			#elif InputsData.move_speed > 0.0:
-				#InputsData.move_speed = InputsData.max_run_speed
-			#is_running = true
-		#else:
-			#is_running = false
-	#else:
-		#is_running = false
+	if is_moving_forward && action_in_progress:
+		lerpTVal += _delta * InputsData.max_move_speed
+		if lerpTVal <= lerpEnd:
+			position = lerp(old_position, new_position, lerpTVal)
 
-	position.x += _delta * InputsData.move_speed
-	position.y -= _delta * InputsData.jump_speed
+	if is_moving_backward && action_in_progress:
+		lerpTVal += _delta * InputsData.max_move_speed
+		if lerpTVal <= lerpEnd:
+			position = lerp(old_position, new_position, lerpTVal)
 
 	if is_on_floor():
 		if is_jumping_upward and not action_in_progress:

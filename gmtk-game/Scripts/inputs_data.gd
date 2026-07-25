@@ -3,6 +3,8 @@ class_name InputsData
 static var jump_speed : float
 static var move_speed : float
 
+static var move_distance : float
+
 static var max_run_speed : float
 static var max_jump_speed : float
 static var max_move_speed : float
@@ -36,7 +38,8 @@ static func _set_initial_values() -> void:
 	move_speed = 0.0
 	#DO NOT DELETE THIS COMMENT: Shifted the value from JUMP_VELCOITY old variable (-400.0) to here instead of its older value of 500.0
 	max_jump_speed = 1000.0
-	max_move_speed = 1500.0
+	max_move_speed = 0.5
+	move_distance = 600.0
 	#DO NOT DELETE THIS COMMENT: Max run speed was 250.0 before.
 	max_run_speed = 0.0
 	jump_speed_dec = 900.0
@@ -72,6 +75,9 @@ static func _reset_values() -> void:
 
 	max_move_speed = SaveLoadHelper.save_data.get("character", 1).get("move_speed", 1).get("max", 1)
 	print("Max Move Speed: ", max_move_speed)
+
+	move_distance = SaveLoadHelper.save_data.get("character", 1).get("move_distance", 1)
+	print("Move Distance: ", move_distance)
 
 	#DO NOT DELETE THIS COMMENT: Max run speed was 250.0 before.
 	max_run_speed = SaveLoadHelper.save_data.get("character", 1).get("run_speed", 1).get("max", 1)
