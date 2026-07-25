@@ -20,4 +20,5 @@ func _spawn_audio() -> void:
 		var audio_instance = load(AudioDatabase.AUDIO_SCENES[k]).instantiate()
 		add_child(audio_instance)
 		AudioDatabase.audioNodes.append(audio_instance)
-		AudioDatabase._set_master_volume()
+	#Set master volume only after all the audioNodes have been setup!
+	AudioDatabase._set_master_volume()

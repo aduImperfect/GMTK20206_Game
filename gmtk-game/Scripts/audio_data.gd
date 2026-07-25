@@ -1,5 +1,8 @@
 class_name AudioDatabase
 
+enum AudioMusic { MUSIC_BACKGROUND }
+enum AudioSfx { SFX_HIGHLIGHT_CARD, SFX_SELECT_CARD }
+
 static var AUDIO_SCENES : Array[String] = []
 static var audioNodes : Array[Node2D]
 static var audioCount : int = 0
@@ -39,6 +42,7 @@ static func _load_audio_scenes() -> void:
 static func _set_values() -> void:
 	_load_audio_scenes()
 	audioCount = AUDIO_SCENES.size()
+	print("Audio Files Count: ", audioCount)
 	print("All Audio Loaded!")
 
 static func _set_master_volume() -> void:
