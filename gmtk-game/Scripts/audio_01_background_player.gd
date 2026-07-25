@@ -17,5 +17,5 @@ func _process(_delta: float) -> void:
 		initialdelayAccumulation += _delta
 		if initialdelayAccumulation > initialdelayMax:
 			initialdelayAccumulation = 0.0
-			initialized = true
 			play()
+			initialized = true
