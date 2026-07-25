@@ -37,12 +37,12 @@ static func _set_initial_values() -> void:
 	jump_speed = 0.0
 	move_speed = 0.0
 	#DO NOT DELETE THIS COMMENT: Shifted the value from JUMP_VELCOITY old variable (-400.0) to here instead of its older value of 500.0
-	max_jump_speed = 1000.0
+	max_jump_speed = 100.0
 	max_move_speed = 0.5
 	move_distance = 600.0
 	#DO NOT DELETE THIS COMMENT: Max run speed was 250.0 before.
 	max_run_speed = 0.0
-	jump_speed_dec = 900.0
+	jump_speed_dec = 100.0
 	move_speed_dec = 900.0
 	min_jump_speed = 0.0
 	min_move_speed = 0.0

@@ -136,6 +136,17 @@ func _process(_delta: float) -> void:
 		new_position = position - Vector2(InputsData.move_distance, 0.0)
 		action_in_progress = true
 
+	if is_on_floor():
+		if is_jumping_upward and not action_in_progress:
+			action_in_progress = true
+		elif is_jumping_forward and not action_in_progress:
+			(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[8]].get_child(0) as AudioStreamPlayer2D).play()
+			action_in_progress = true
+		else:
+			grounded = true
+	else:
+		grounded = false
+
 	if is_moving_forward && action_in_progress:
 		move_timer += _delta
 		if move_timer > move_duration:
@@ -174,19 +185,17 @@ func _process(_delta: float) -> void:
 			old_position = position
 			new_position = position
 
-	if (is_jumping_upward or is_jumping_forward) and grounded and action_in_progress:
-		InputsData.jump_speed = InputsData.max_jump_speed
-		grounded = false
-	elif not grounded and action_in_progress:
-		if InputsData.jump_speed > InputsData.jump_speed_min_diff:
-			InputsData.jump_speed -= _delta * InputsData.jump_speed_dec
-		else:
-			InputsData.jump_speed = InputsData.min_jump_speed
+	if is_jumping_forward && action_in_progress:
+		move_timer += _delta
+		if move_timer > move_duration:
+			move_timer = 0.0
+			lerpTVal = 0.0
+			is_jumping_forward = false
 			action_in_progress = false
 			long_press_triggered = false
 
 	#Long Press Action!
-	if is_holding and not long_press_triggered:
+	if is_holding and not long_press_triggered and not action_in_progress:
 		hold_timer += _delta
 		CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).selectedDelayAccumulation = hold_timer
 		InputsData.curr_input_card_selected = true
@@ -194,6 +203,7 @@ func _process(_delta: float) -> void:
 			InputsData.curr_input_card_selection_complete = true
 			is_holding = false
 			hold_timer = 0.0
+			move_timer = 0.0
 			long_press_triggered = true
 			_on_long_press()
 
@@ -204,8 +214,14 @@ func _physics_process(_delta: float) -> void:
 	if text_edit_input:
 		return
 
-	#position.x += _delta * InputsData.move_speed
-	#position.y -= _delta * InputsData.jump_speed
+	if velocity.x > 0.0:
+		velocity.x -= _delta * InputsData.jump_speed_dec
+	else:
+		velocity.x = 0.0
+
+	if not is_on_floor():
+		#Gravity fall! Times 2!
+		velocity.y += gravity * _delta * 2
 
 	if is_moving_forward && action_in_progress:
 		lerpTVal += _delta * InputsData.max_move_speed
@@ -217,24 +233,12 @@ func _physics_process(_delta: float) -> void:
 		if lerpTVal <= lerpEnd:
 			position = lerp(old_position, new_position, lerpTVal)
 
-	if is_on_floor():
-		if is_jumping_upward and not action_in_progress:
-			velocity.y = -(InputsData.max_jump_speed)
-			action_in_progress = true
-		elif is_jumping_forward and not action_in_progress:
-			(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[8]].get_child(0) as AudioStreamPlayer2D).play()
-			velocity.y = -(InputsData.max_jump_speed)
-			velocity.x = (InputsData.max_move_speed / 4)
-			#is_moving_forward = true
-			#InputsData.move_speed = InputsData.max_move_speed
-			action_in_progress = true
-		else:
-			grounded = true
-			InputsData.jump_speed = InputsData.min_jump_speed
-	else:
-		#Gravity fall! Times 2!
-		velocity.y += gravity * _delta * 2
-		grounded = false
+	if is_jumping_upward and action_in_progress:
+		velocity.y = -(InputsData.max_jump_speed)
+
+	if is_jumping_forward and action_in_progress:
+		velocity.y = -(InputsData.max_jump_speed)
+		velocity.x = InputsData.move_distance / 6
 
 	move_and_slide()
 	ghost_frames.append(position)
@@ -326,6 +330,8 @@ func _on_long_press() -> void:
 	elif InputsData.curr_input_card_value == CardType.CARD_TYPE_ENUM.JUMP_UPWARD:
 		is_jumping_upward = true
 	elif InputsData.curr_input_card_value == CardType.CARD_TYPE_ENUM.JUMP_FORWARD:
+		#Both are true!
+		#is_moving_forward = true
 		is_jumping_forward = true
 	elif InputsData.curr_input_card_value == CardType.CARD_TYPE_ENUM.SPEED_UP:
 		is_speeding_up = true
@@ -334,6 +340,7 @@ func _on_long_press() -> void:
 	elif InputsData.curr_input_card_value == CardType.CARD_TYPE_ENUM.STOP:
 		is_stopping = true
 	action_in_progress = false
+	move_timer = 0.0
 
 func _add_input_actions_for_this_player() -> void:
 	# If its the last player - set the actions to be tied to keyboard!
