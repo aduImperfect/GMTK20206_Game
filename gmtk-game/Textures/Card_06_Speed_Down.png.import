@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7ckklvung5pw"
-path="res://.godot/imported/Card_07.png-85deabf6bc04cd92978c8cdcfbb42209.ctex"
+uid="uid://dpwvaxcgeqomx"
+path="res://.godot/imported/Card_06_Speed_Down.png-83106276e77dda2c4b306ced489a2583.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Card_07.png"
-dest_files=["res://.godot/imported/Card_07.png-85deabf6bc04cd92978c8cdcfbb42209.ctex"]
+source_file="res://Textures/Card_06_Speed_Down.png"
+dest_files=["res://.godot/imported/Card_06_Speed_Down.png-83106276e77dda2c4b306ced489a2583.ctex"]
 
 [params]
 

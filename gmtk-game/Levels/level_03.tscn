@@ -5,17 +5,25 @@
 [ext_resource type="PackedScene" uid="uid://c2gstpkex2tx8" path="res://Scenes/goal.tscn" id="2_ojpmh"]
 [ext_resource type="PackedScene" uid="uid://b36n3qasn3g46" path="res://Scenes/ground.tscn" id="3_703nv"]
 [ext_resource type="PackedScene" uid="uid://c7kw2s1jyomna" path="res://Scenes/death.tscn" id="4_gff3n"]
+[ext_resource type="PackedScene" uid="uid://cewwvkacexvk2" path="res://Scenes/cardvalues.tscn" id="6_i7vav"]
 
 [node name="Level_03" type="Node2D" unique_id=1762506268]
 
 [node name="Start" parent="." unique_id=1470424718 instance=ExtResource("1_1vin3")]
 position = Vector2(78, 380)
 
+[node name="Goal" parent="." unique_id=1634378711 instance=ExtResource("2_ojpmh")]
+position = Vector2(1146, 444)
+
+[node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_gff3n")]
+position = Vector2(642.00006, 665)
+scale = Vector2(60, 1)
+
 [node name="Campos" parent="." unique_id=952399795 instance=ExtResource("2_f3lte")]
 position = Vector2(678, 190)
 
-[node name="Goal" parent="." unique_id=1634378711 instance=ExtResource("2_ojpmh")]
-position = Vector2(1146, 444)
+[node name="CardValues" parent="." unique_id=1516587373 instance=ExtResource("6_i7vav")]
+handValues = Array[int]([1, 4, 1, 4, 5, 1])
 
 [node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("3_703nv")]
 position = Vector2(21, 363)
@@ -68,7 +76,3 @@ scale = Vector2(30, 1)
 [node name="Ground_P_10" parent="." unique_id=2051624496 instance=ExtResource("3_703nv")]
 position = Vector2(638.00006, 21)
 scale = Vector2(30, 1)
-
-[node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_gff3n")]
-position = Vector2(642.00006, 665)
-scale = Vector2(60, 1)

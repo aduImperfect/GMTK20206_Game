@@ -5,14 +5,25 @@
 [ext_resource type="PackedScene" uid="uid://dbswmh8aba0vb" path="res://Scenes/start.tscn" id="3_xfk5q"]
 [ext_resource type="PackedScene" uid="uid://c7kw2s1jyomna" path="res://Scenes/death.tscn" id="4_1cq4g"]
 [ext_resource type="PackedScene" uid="uid://o11jqegfw74n" path="res://Scenes/campos.tscn" id="4_ocwms"]
+[ext_resource type="PackedScene" uid="uid://cewwvkacexvk2" path="res://Scenes/cardvalues.tscn" id="6_pbphk"]
 
 [node name="Level_01" type="Node2D" unique_id=234875700]
 
 [node name="Start" parent="." unique_id=1470424718 instance=ExtResource("3_xfk5q")]
 position = Vector2(73, 381)
 
-[node name="Goal2" parent="." unique_id=1634378711 instance=ExtResource("2_8ffim")]
+[node name="Goal" parent="." unique_id=1634378711 instance=ExtResource("2_8ffim")]
 position = Vector2(1195, 382)
+
+[node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_1cq4g")]
+position = Vector2(920, 750)
+scale = Vector2(100, 1)
+
+[node name="Campos" parent="." unique_id=952399795 instance=ExtResource("4_ocwms")]
+position = Vector2(641, 152)
+
+[node name="CardValues" parent="." unique_id=1516587373 instance=ExtResource("6_pbphk")]
+handValues = Array[int]([1, 1])
 
 [node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("1_vk57k")]
 position = Vector2(20, 362)
@@ -34,10 +45,6 @@ scale = Vector2(30, 1)
 position = Vector2(640.00006, 22)
 scale = Vector2(30, 1)
 
-[node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_1cq4g")]
-position = Vector2(920, 750)
-scale = Vector2(100, 1)
-
 [node name="LevelEnd2" type="TextEdit" parent="." unique_id=357667467]
 offset_left = 1050.0
 offset_top = 272.0
@@ -53,6 +60,3 @@ offset_right = 302.0
 offset_bottom = 299.0
 text = "Use the cards to move! (ง'̀-'́)ง"
 metadata/_edit_use_anchors_ = true
-
-[node name="Campos" parent="." unique_id=952399795 instance=ExtResource("4_ocwms")]
-position = Vector2(641, 152)

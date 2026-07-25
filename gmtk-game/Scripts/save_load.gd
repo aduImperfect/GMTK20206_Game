@@ -40,7 +40,12 @@ static func save_game() -> void:
 				"volume": {
 					"master": AudioDatabase.audioMasterVolume
 				}
-			}
+			},
+			"cards": {
+				"deck_size": CardsHelper.deckSize,
+				"hand_limit": CardsHelper.handLimit,
+				"hand_limits" : CardsHelper.handLimits,
+			},
 		},
 		"character": {
 			"jump_speed": {
@@ -119,7 +124,8 @@ static func save_game() -> void:
 		print("Failed to create copy file. Error code: ", FileAccess.get_open_error())
 
 	print("--------------------")
-
+	#DO NOT REMOVE: Forcing the check for level switch to end here!
+	LevelsDatabase.lvlSwitchInProgress = false
 
 
 # 2. LOAD FUNCTION

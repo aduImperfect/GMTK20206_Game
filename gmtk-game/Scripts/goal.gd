@@ -32,5 +32,6 @@ func _on_body_entered(body: Node2D) -> void:
 			break
 
 	#Only progress to next level if all players reached!
-	if allPlayersEntered:
+	if allPlayersEntered && LevelsDatabase.lvlSwitchInProgress == false:
+		set_deferred("monitoring", false)
 		LevelsDatabase._level_switcher()

@@ -12,7 +12,13 @@ static var maxHeight : int = 0
 static var xLevelCenter : float = 0.0
 static var yLevelCenter : float = 0.0
 
-static var currLevel : int = 0
+static var lvlSwitchInProgress : bool = false
+
+static var currLevel : int = 0:
+	set(value):
+		currLevel = value
+		#breakpoint # Stops execution live on change
+
 
 static func _load_level_scenes() -> void:
 	LEVEL_SCENES.clear()
@@ -44,6 +50,8 @@ static func _set_values() -> void:
 
 	xLevelOffset = 3000.0
 	yLevelOffset = 2000.0
+	
+	lvlSwitchInProgress = false
 
 	if SaveLoadHelper.fileExist:
 		currLevel = SaveLoadHelper.save_data.get("game", 1).get("level", 1).get("current", 1) - 1
@@ -56,6 +64,8 @@ static func _set_values() -> void:
 	print("All Levels Loaded!")
 
 static func _level_switcher(newLevelNum : int = -1) -> void:
+	lvlSwitchInProgress = true
+
 	print("---------------")
 	print("Level Switched to: ", newLevelNum)
 
@@ -65,19 +75,24 @@ static func _level_switcher(newLevelNum : int = -1) -> void:
 	else:
 		#Setting level forcibly to switch version.
 		LevelsDatabase.currLevel = newLevelNum
+	print("Level Switcher Func - Current Level:", LevelsDatabase.currLevel)
 	InputsData.begin_delay = true
 	InputsData._reset_values()
 	CameraHelper._reset_values_sp()
+	CardsHelper._reset_values()
 
 	if LevelsDatabase.currLevel >= LevelsDatabase.levelsCount:
 		#print("Game Complete")
 		return
 
 	for k in LevelsDatabase.levelsCount:
-		LevelsDatabase.levelNodes[k].global_position.y -= yLevelOffset
-		if (k != 0) && ((k % LevelsDatabase.maxHeight) == 0):
-			LevelsDatabase.levelNodes[k].global_position.x -= xLevelOffset
-		print(LevelsDatabase.levelNodes[k].global_position.x, LevelsDatabase.levelNodes[k].global_position.y)
+		LevelsDatabase.levelNodes[k].global_position.x = 0.0
+		LevelsDatabase.levelNodes[k].global_position.y = 0.0
+		LevelsDatabase.levelNodes[k].z_index = -2000
+		#LevelsDatabase.levelNodes[k].global_position.y -= yLevelOffset
+		#if (k != 0) && ((k % LevelsDatabase.maxHeight) == 0):
+			#LevelsDatabase.levelNodes[k].global_position.x -= xLevelOffset
+	LevelsDatabase.levelNodes[LevelsDatabase.currLevel].z_index = 0
 
 	for k in PlayersHelper.playerNodes.size():
 		PlayersHelper.clear_ghosts_for_player(k)
@@ -85,8 +100,19 @@ static func _level_switcher(newLevelNum : int = -1) -> void:
 		PlayersHelper.playerNodes[k].global_position = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(0).global_position
 		PlayersHelper.playerNodes[k].get_child(0)._start_new_run()
 
+	CardsHelper._level_switching_values()
+
+	for k in LevelsDatabase.levelsCount:
+		if k == LevelsDatabase.currLevel:
+			continue
+		LevelsDatabase.levelNodes[k].global_position.x = -9999.0
+		LevelsDatabase.levelNodes[k].global_position.y = -9999.0
+
+
 	#CamPos is second child of the level!
 	#CameraHelper.camera_position = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(1).global_position
+
+	LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(1).set_deferred("monitoring", true)
 
 	SaveLoadHelper.save_game()
 	print("---------------")

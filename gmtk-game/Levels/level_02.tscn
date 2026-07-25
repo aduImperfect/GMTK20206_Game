@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://o11jqegfw74n" path="res://Scenes/campos.tscn" id="3_6mfy8"]
 [ext_resource type="PackedScene" uid="uid://b36n3qasn3g46" path="res://Scenes/ground.tscn" id="3_i2y1e"]
 [ext_resource type="PackedScene" uid="uid://c7kw2s1jyomna" path="res://Scenes/death.tscn" id="4_bsxbt"]
+[ext_resource type="PackedScene" uid="uid://cewwvkacexvk2" path="res://Scenes/cardvalues.tscn" id="6_1nift"]
 
 [node name="Level_02" type="Node2D" unique_id=1163223301]
 
@@ -14,8 +15,15 @@ position = Vector2(272, 451)
 [node name="Goal" parent="." unique_id=1634378711 instance=ExtResource("2_iel4d")]
 position = Vector2(977, 413)
 
+[node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_bsxbt")]
+position = Vector2(642.00006, 665)
+scale = Vector2(60, 1)
+
 [node name="Campos" parent="." unique_id=952399795 instance=ExtResource("3_6mfy8")]
 position = Vector2(678, 190)
+
+[node name="CardValues" parent="." unique_id=1516587373 instance=ExtResource("6_1nift")]
+handValues = Array[int]([1, 4, 1])
 
 [node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("3_i2y1e")]
 position = Vector2(21, 363)
@@ -52,10 +60,6 @@ offset_right = 1061.0
 offset_bottom = 375.0
 text = "Nice."
 metadata/_edit_use_anchors_ = true
-
-[node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_bsxbt")]
-position = Vector2(642.00006, 665)
-scale = Vector2(60, 1)
 
 [node name="Ground_P_9" parent="." unique_id=340516949 instance=ExtResource("3_i2y1e")]
 position = Vector2(641.00006, 700)
