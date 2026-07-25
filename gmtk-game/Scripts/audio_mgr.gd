@@ -13,6 +13,7 @@ func _ready() -> void:
 
 	_spawn_audio()
 	AudioDatabase.audioMgrNode = self
+	AudioDatabase.audio_styles_list_sttc = audio_styles_list
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

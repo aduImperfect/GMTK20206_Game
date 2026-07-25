@@ -3,10 +3,13 @@ extends Node2D
 @export var initialDelayAccumulation : float = 0.0
 @export var initialDelayMax : float = 0.0
 
+@export var firstDraw : bool = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	initialDelayAccumulation = 0.0
 	initialDelayMax = 0.1
+	firstDraw = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -47,6 +50,10 @@ func _draw_starting_hand() -> void:
 		print("CardsHelper.handLimits[" + str(LevelsDatabase.currLevel) +  "][" + str(j) + "]: ", CardsHelper.handLimits[LevelsDatabase.currLevel][j])
 		CardsHelper.handNodes[j].get_child(0).cardTypeVal = CardsHelper.handLimits[LevelsDatabase.currLevel][j]
 
+	#if firstDraw == false:
+	(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[3]].get_child(0) as AudioStreamPlayer2D).play()
+	#firstDraw = false
+
 func _return_to_deck() -> void:
 	#Add back the leftover hand cards back into the deck (if any)!
 	while CardsHelper.handNodes.size() != 0:
@@ -57,6 +64,8 @@ func _return_to_deck() -> void:
 		CardsHelper.deckNodes[j].get_child(0).cardTypeVal = CardType.CARD_TYPE_ENUM.BACKSIDE
 		CardsHelper.deckNodes[j].get_child(0).zIndex = -500 + (j * 10)
 		CardsHelper.deckNodes[j].get_child(0).lerped = false
+
+	(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[4]].get_child(0) as AudioStreamPlayer2D).play()
 
 func _update_card_state() -> void:
 	print("Current Hand Card Index: ", InputsData.curr_input_card_index)
@@ -73,6 +82,9 @@ func _update_card_state() -> void:
 		return
 
 	if InputsData.curr_input_card_index >= CardsHelper.handLimits[LevelsDatabase.currLevel].size():
+		return
+
+	if CardsHelper.handNodes.size() == 0:
 		return
 
 	InputsData.curr_input_card_value = CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).cardTypeVal

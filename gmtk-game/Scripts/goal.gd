@@ -35,5 +35,4 @@ func _on_body_entered(body: Node2D) -> void:
 	if allPlayersEntered && LevelsDatabase.lvlSwitchInProgress == false:
 		set_deferred("monitoring", false)
 		LevelsDatabase._level_switcher()
-		#var audPl = AudioDatabase.audioNodes[0].get_child(0) as AudioStreamPlayer2D
-		#audPl.play()
+		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[5]].get_child(0) as AudioStreamPlayer2D).play()

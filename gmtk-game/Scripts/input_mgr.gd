@@ -89,7 +89,7 @@ func _initialize() -> void:
 		initializationCommplete = true
 		SaveLoadHelper.save_game()
 	
-	(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[0]].get_child(0) as AudioStreamPlayer2D).play()
+	#(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[0]].get_child(0) as AudioStreamPlayer2D).play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -168,6 +168,7 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	if is_moving_forward and not action_in_progress:
+		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[6]].get_child(0) as AudioStreamPlayer2D).play()
 		InputsData.move_speed = InputsData.max_move_speed
 		action_in_progress = true
 	elif is_moving_backward and not action_in_progress:
@@ -196,7 +197,7 @@ func _physics_process(_delta: float) -> void:
 			action_in_progress = true
 		elif is_jumping_forward and not action_in_progress:
 			velocity.y = -(InputsData.max_jump_speed)
-			velocity.x = (InputsData.max_move_speed / 2)
+			velocity.x = (InputsData.max_move_speed / 4)
 			#is_moving_forward = true
 			#InputsData.move_speed = InputsData.max_move_speed
 			action_in_progress = true
