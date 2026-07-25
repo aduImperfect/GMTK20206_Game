@@ -27,7 +27,7 @@ extends CharacterBody2D
 @export var cancel_action: String
 
 # Time in seconds required to trigger a long press
-@export var hold_duration: float = 2.0
+@export var hold_duration: float = 1.2
 var hold_timer: float = 0.0
 var is_holding: bool = false
 var long_press_triggered: bool = false
