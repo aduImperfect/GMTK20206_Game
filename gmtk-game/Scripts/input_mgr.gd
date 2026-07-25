@@ -233,7 +233,7 @@ func _input(_event: InputEvent) -> void:
 		long_press_triggered = false
 	# Detect when the button is released
 	elif _event.is_action_released(select_action):
-		(AudioDatabase.audioNodes[2].get_child(0) as AudioStreamPlayer2D).play()
+		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[2]].get_child(0) as AudioStreamPlayer2D).play()
 		InputsData.curr_input_card_selected = false
 		InputsData.curr_input_card_selection_complete = false
 		is_holding = false
@@ -243,7 +243,7 @@ func _input(_event: InputEvent) -> void:
 
 	#Highlight the left card index.
 	if _event.is_action_pressed(move_left_action):
-		(AudioDatabase.audioNodes[1].get_child(0) as AudioStreamPlayer2D).play()
+		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[1]].get_child(0) as AudioStreamPlayer2D).play()
 		if InputsData.curr_input_card_index < 0:
 			InputsData.curr_input_card_index = 0
 		else:
@@ -251,7 +251,7 @@ func _input(_event: InputEvent) -> void:
 
 	#Highlight the right card index.
 	if _event.is_action_pressed(move_right_action):
-		(AudioDatabase.audioNodes[1].get_child(0) as AudioStreamPlayer2D).play()
+		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[1]].get_child(0) as AudioStreamPlayer2D).play()
 		if InputsData.curr_input_card_index > (CardsHelper.handLimits[LevelsDatabase.currLevel].size() - 1):
 			InputsData.curr_input_card_index = (CardsHelper.handLimits[LevelsDatabase.currLevel].size() - 1)
 		else:

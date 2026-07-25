@@ -12,10 +12,13 @@ metadata/_edit_vertical_guides_ = [122.0]
 collision_layer = 2
 script = ExtResource("1_cvnsp")
 gravity = 980.0
-jump_action = "ui_jump_p0"
+select_action = "ui_select_p0"
 move_left_action = "ui_left_p0"
 move_right_action = "ui_right_p0"
-run_action = "ui_run_p0"
+cancel_action = "ui_cancel_p0"
+move_duration = 0.2
+initializationAccumulationTime = 0.1830736666666667
+initializationAccumulationTimer = 0.25
 
 [node name="PlayerCS2D" type="CollisionShape2D" parent="PlayerCB2D" unique_id=2060292915]
 shape = SubResource("RectangleShape2D_m6x6n")

@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var audio_styles_list : Array[AudioDatabase.AudioStyle]
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	AudioDatabase._set_values()
@@ -13,6 +15,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	AudioDatabase.audio_styles_list_sttc = audio_styles_list
 	AudioDatabase._set_current_volumes()
 
 func _spawn_audio() -> void:

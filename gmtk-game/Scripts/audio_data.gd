@@ -1,10 +1,10 @@
 class_name AudioDatabase
 
-enum AudioMusic { MUSIC_BACKGROUND }
-enum AudioSfx { SFX_HIGHLIGHT_CARD, SFX_SELECT_CARD }
+enum AudioStyle { MUSIC_BACKGROUND, SFX_HIGHLIGHT_CARD, SFX_SELECT_CARD }
 
 static var AUDIO_SCENES : Array[String] = []
 static var audioNodes : Array[Node2D]
+static var audio_styles_list_sttc : Array[AudioStyle]
 static var audioCount : int = 0
 
 static var audioMasterVolume : float = 0.0
