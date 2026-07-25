@@ -26,8 +26,14 @@ func _on_body_entered(body: Node2D) -> void:
 	body.owner.global_position = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(0).global_position
 	InputsData.jump_speed = 0.0
 	InputsData.move_speed = 0.0
-	body.is_moving = false
-	body.is_jumping = false
+	body.is_moving_forward = false
+	body.is_moving_backward = false
+	body.is_jumping_upward = false
+	body.is_jumping_forward = false
+	body.is_speeding_up = false
+	body.is_speeding_down = false
+	body.is_stopping = false
+	body.action_in_progress = false
 
 	body._start_new_run()
 	print("Player Died!")

@@ -189,13 +189,16 @@ func _physics_process(_delta: float) -> void:
 	position.y -= _delta * InputsData.jump_speed
 
 	if is_on_floor():
-		if is_jumping_upward:
+		if is_jumping_upward and not action_in_progress:
 			velocity.y = -(InputsData.max_jump_speed)
-			pass
+			action_in_progress = true
+		elif is_jumping_forward and not action_in_progress:
+			velocity.y = -(InputsData.max_jump_speed)
+			InputsData.move_speed = InputsData.max_move_speed
+			action_in_progress = true
 		else:
-			pass
-		grounded = true
-		InputsData.jump_speed = InputsData.min_jump_speed
+			grounded = true
+			InputsData.jump_speed = InputsData.min_jump_speed
 	else:
 		#Gravity fall! Times 2!
 		velocity.y += gravity * _delta * 2
