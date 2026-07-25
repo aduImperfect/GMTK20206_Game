@@ -24,7 +24,7 @@ static func _load_audio_scenes() -> void:
 		return
 
 	var audio_regex := RegEx.new()
-	audio_regex.compile("^audio_(\\d{2})\\.tscn$")
+	audio_regex.compile("^audio_(\\d{2})_.*\\.tscn$")
 
 	dir.list_dir_begin()
 	var file_name := dir.get_next()
