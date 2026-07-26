@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://q6vndxuwfur" path="res://Scripts/textmousemgr.gd" id="7_ffslo"]
 [ext_resource type="Script" uid="uid://dkodyp4vkvacb" path="res://Scripts/cards_legend.gd" id="7_hv8fo"]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_ffslo"]
+
 [node name="Level_02" type="Node2D" unique_id=1163223301]
 
 [node name="Start" parent="." unique_id=1470424718 instance=ExtResource("1_2qs01")]
@@ -90,3 +92,14 @@ text = "Cards Legend Goes Here
 x = Stop"
 editable = false
 script = ExtResource("7_hv8fo")
+
+[node name="CardsBG" type="TextureRect" parent="." unique_id=1560152701]
+modulate = Color(1, 0.45490196, 1, 1)
+self_modulate = Color(0.42745098, 0.41568628, 0.38039216, 1)
+show_behind_parent = true
+z_index = -700
+offset_left = 148.0
+offset_top = 575.0
+offset_right = 564.0
+offset_bottom = 664.0
+texture = SubResource("CanvasTexture_ffslo")

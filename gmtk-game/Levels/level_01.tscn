@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://q6vndxuwfur" path="res://Scripts/textmousemgr.gd" id="7_ale55"]
 [ext_resource type="Script" uid="uid://med5cdnyq20i" path="res://Levels/welcome.gd" id="9_3ro2k"]
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_3ro2k"]
+
 [node name="Level_01" type="Node2D" unique_id=234875700]
 
 [node name="Start" parent="." unique_id=1470424718 instance=ExtResource("3_xfk5q")]
@@ -97,3 +99,14 @@ THE CARD BASED PLATFORMER!!"
 editable = false
 wrap_mode = 1
 script = ExtResource("9_3ro2k")
+
+[node name="CardsBG" type="TextureRect" parent="." unique_id=497918915]
+modulate = Color(1, 0.45490196, 1, 1)
+self_modulate = Color(0.42745098, 0.41568628, 0.38039216, 1)
+show_behind_parent = true
+z_index = -700
+offset_left = 148.0
+offset_top = 575.0
+offset_right = 564.0
+offset_bottom = 664.0
+texture = SubResource("CanvasTexture_3ro2k")
