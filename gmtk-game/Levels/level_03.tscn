@@ -25,7 +25,7 @@ scale = Vector2(60, 1)
 position = Vector2(678, 190)
 
 [node name="CardValues" parent="." unique_id=1516587373 instance=ExtResource("6_i7vav")]
-handValues = Array[int]([1, 4, 1, 4, 1])
+handValues = Array[int]([1, 4, 1, 4, 1, 2])
 countdownVal = 4
 
 [node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("3_703nv")]
@@ -46,6 +46,9 @@ scale = Vector2(5, 1)
 
 [node name="Ground_P_12" parent="." unique_id=644116827 instance=ExtResource("3_703nv")]
 position = Vector2(639, 317)
+
+[node name="Ground_P_15" parent="." unique_id=2099953972 instance=ExtResource("3_703nv")]
+position = Vector2(407, 317)
 
 [node name="Ground_P_14" parent="." unique_id=58414328 instance=ExtResource("3_703nv")]
 position = Vector2(330, 372)
