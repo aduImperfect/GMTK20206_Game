@@ -19,7 +19,7 @@ func _on_body_entered(body: Node2D) -> void:
 	_player_death(body)
 
 static func _player_death(body: Node2D) -> void:
-	if body.owner.name.contains("Player") == false:
+	if body.owner != null && body.owner.name.contains("Player") == false:
 		return
 
 	(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[7]].get_child(0) as AudioStreamPlayer2D).play()

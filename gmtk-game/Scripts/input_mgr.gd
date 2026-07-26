@@ -154,6 +154,26 @@ func _process(_delta: float) -> void:
 
 	InputsData.action_occurring = action_in_progress
 
+	if is_on_floor():
+		if (Mover.onMover == false) && (Mover.originalFollowerParent == Mover.origParent):
+			var collision = get_last_slide_collision()
+			if collision:
+				var obj = collision.get_collider()
+				if obj.owner.name.contains("Mover"):
+					Mover.onMover = true
+					Mover.followerNode = self
+	else:
+		if Mover.onMover:
+			print("Follower Owner Bef: ", Mover.followerNode.owner)
+			reparent(Mover.originalFollowerParent)
+			owner =  Mover.originalFollowerParent
+			print("Follower Owner Aft: ", Mover.followerNode.owner)
+			print("OriginalFollowerParent Bef: ", Mover.originalFollowerParent)
+			Mover.originalFollowerParent = Mover.origParent
+			print("OriginalFollowerParent Bef: ", Mover.originalFollowerParent)
+			Mover.onMover = false
+
+
 	if wallHit:
 		if moveDir > 0.0:
 			position.x -= _delta * wallBounce
@@ -170,6 +190,8 @@ func _process(_delta: float) -> void:
 	if is_on_ceiling():
 		move_timer = 0.0
 		lerpTVal = 0.0
+		if is_jumping_forward or is_jumping_upward:
+			CountdownData.countdownVal -= 1
 		is_moving_forward = false
 		is_moving_backward = false
 		is_jumping_upward = false
@@ -290,6 +312,7 @@ func _process(_delta: float) -> void:
 			hold_timer = 0.0
 			move_timer = 0.0
 			long_press_triggered = true
+			#Mover.onMover = false
 			_on_long_press()
 
 func _physics_process(_delta: float) -> void:

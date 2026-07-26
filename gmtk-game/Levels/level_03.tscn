@@ -28,8 +28,8 @@ scale = Vector2(60, 1)
 position = Vector2(678, 190)
 
 [node name="CardValues" parent="." unique_id=1516587373 instance=ExtResource("6_i7vav")]
-handValues = Array[int]([1, 4, 1, 4, 3, 2, 3, 4])
-countdownVal = 5
+handValues = Array[int]([1, 4, 4, 1, 3, 2, 3, 4])
+countdownVal = 6
 
 [node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("3_703nv")]
 position = Vector2(21, 363)
@@ -44,8 +44,8 @@ position = Vector2(425, 480)
 scale = Vector2(2, 1)
 
 [node name="Ground_P_6" parent="." unique_id=1533128158 instance=ExtResource("3_703nv")]
-position = Vector2(540, 356)
-scale = Vector2(5, 1)
+position = Vector2(519, 357)
+scale = Vector2(4, 1)
 
 [node name="Ground_P_16" parent="." unique_id=1704762492 instance=ExtResource("3_703nv")]
 position = Vector2(624.00006, 480)
@@ -66,15 +66,19 @@ scale = Vector2(1, 4)
 position = Vector2(330, 372)
 
 [node name="Ground_P_11" parent="." unique_id=693873029 instance=ExtResource("3_703nv")]
-position = Vector2(1055, 477)
-scale = Vector2(5, 1)
+position = Vector2(1033, 477)
+scale = Vector2(6, 1)
 
 [node name="Ground_P_13" parent="." unique_id=1646154685 instance=ExtResource("3_703nv")]
 position = Vector2(310, 412)
 rotation = -1.5707964
 scale = Vector2(1, 2)
 
-[node name="Ground_P_17" parent="." unique_id=329650436 instance=ExtResource("3_703nv")]
+[node name="Ground_P_17" parent="." unique_id=658759913 instance=ExtResource("3_703nv")]
+position = Vector2(734, 460)
+scale = Vector2(0.5, 2)
+
+[node name="Ground_P_17_Mover" parent="." unique_id=329650436 instance=ExtResource("3_703nv")]
 position = Vector2(783, 160)
 script = ExtResource("7_armlc")
 travelPoss = Array[Vector2]([Vector2(783, 160), Vector2(783, 400), Vector2(624, 400)])

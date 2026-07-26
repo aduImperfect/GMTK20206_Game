@@ -19,8 +19,9 @@ cancel_action = "ui_cancel_p0"
 lerpEnd = 1.0
 wallBounce = 100.0
 wallHitTimer = 0.5
-initializationAccumulationTime = 0.019867999999999997
+initializationAccumulationTime = 0.0670193333332842
 initializationAccumulationTimer = 0.25
+moveDir = null
 
 [node name="PlayerCS2D" type="CollisionShape2D" parent="PlayerCB2D" unique_id=2060292915]
 shape = SubResource("RectangleShape2D_m6x6n")
