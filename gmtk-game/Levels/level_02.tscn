@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://b36n3qasn3g46" path="res://Scenes/ground.tscn" id="3_i2y1e"]
 [ext_resource type="PackedScene" uid="uid://c7kw2s1jyomna" path="res://Scenes/death.tscn" id="4_bsxbt"]
 [ext_resource type="PackedScene" uid="uid://cewwvkacexvk2" path="res://Scenes/cardvalues.tscn" id="6_1nift"]
+[ext_resource type="Script" uid="uid://q6vndxuwfur" path="res://Scripts/textmousemgr.gd" id="7_ffslo"]
+[ext_resource type="Script" uid="uid://dkodyp4vkvacb" path="res://Scripts/cards_legend.gd" id="7_hv8fo"]
 
 [node name="Level_02" type="Node2D" unique_id=1163223301]
 
@@ -24,6 +26,7 @@ position = Vector2(678, 190)
 
 [node name="CardValues" parent="." unique_id=1516587373 instance=ExtResource("6_1nift")]
 handValues = Array[int]([1, 4, 1])
+countdownVal = 2
 
 [node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("3_i2y1e")]
 position = Vector2(21, 363)
@@ -51,6 +54,8 @@ offset_top = 275.0
 offset_right = 223.0
 offset_bottom = 313.0
 text = "Jump good practice."
+editable = false
+script = ExtResource("7_ffslo")
 metadata/_edit_use_anchors_ = true
 
 [node name="LevelEnd" type="TextEdit" parent="." unique_id=1581963938]
@@ -59,6 +64,8 @@ offset_top = 251.0
 offset_right = 1061.0
 offset_bottom = 287.0
 text = "Nice."
+editable = false
+script = ExtResource("7_ffslo")
 metadata/_edit_use_anchors_ = true
 
 [node name="Ground_P_9" parent="." unique_id=340516949 instance=ExtResource("3_i2y1e")]
@@ -68,3 +75,18 @@ scale = Vector2(30, 1)
 [node name="Ground_P_10" parent="." unique_id=624409404 instance=ExtResource("3_i2y1e")]
 position = Vector2(638.00006, 21)
 scale = Vector2(30, 1)
+
+[node name="CardsLegend" type="TextEdit" parent="." unique_id=945928845]
+z_index = -100
+offset_left = 1013.0
+offset_top = 51.0
+offset_right = 1226.0
+offset_bottom = 228.0
+text = "Cards Legend Goes Here
+🗲 = Deck BG
+🡢 = Move Forward
+🡠 = Move Backward
+🡱 = Jump
+x = Stop"
+editable = false
+script = ExtResource("7_hv8fo")

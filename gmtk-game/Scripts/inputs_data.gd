@@ -35,6 +35,8 @@ static var curr_input_card_selection_complete : bool
 
 static var action_occurring : bool
 
+static var countdown_level_switching : bool
+
 static func _set_initial_values() -> void:
 	jump_speed = 0.0
 	move_speed = 0.0
@@ -64,6 +66,7 @@ static func _set_initial_values() -> void:
 	curr_input_card_selection_complete = false
 
 	action_occurring = false
+	countdown_level_switching = false
 
 static func _reset_values() -> void:
 	print("--------------------")
@@ -113,6 +116,8 @@ static func _reset_values() -> void:
 	curr_input_card_index = -1
 	curr_input_card_selected = false
 	curr_input_card_selection_complete = false
-	
+
+	action_occurring = false
+	countdown_level_switching = false
 
 	print("--------------------")

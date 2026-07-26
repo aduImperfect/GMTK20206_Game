@@ -19,6 +19,7 @@ static var currLevel : int = 0:
 		currLevel = value
 		#breakpoint # Stops execution live on change
 
+static var prevLevel : int = 0
 
 static func _load_level_scenes() -> void:
 	LEVEL_SCENES.clear()
@@ -55,9 +56,11 @@ static func _set_values() -> void:
 
 	if SaveLoadHelper.fileExist:
 		currLevel = SaveLoadHelper.save_data.get("game", 1).get("level", 1).get("current", 1) - 1
+		prevLevel = currLevel
 	else:
 		#Value starts at 0 not 1 for the array!
 		currLevel = 0
+		prevLevel = 0
 
 	levelsCount = LEVEL_SCENES.size()
 	maxHeight = 10
@@ -71,9 +74,11 @@ static func _level_switcher(newLevelNum : int = -1) -> void:
 
 	if newLevelNum < 0:
 		#Normal internal function of level switching incrementally.
+		prevLevel = LevelsDatabase.currLevel
 		LevelsDatabase.currLevel += 1
 	else:
 		#Setting level forcibly to switch version.
+		prevLevel = LevelsDatabase.currLevel
 		LevelsDatabase.currLevel = newLevelNum
 	print("Level Switcher Func - Current Level:", LevelsDatabase.currLevel)
 	InputsData.begin_delay = true
@@ -122,11 +127,11 @@ static func _level_switcher(newLevelNum : int = -1) -> void:
 		LevelsDatabase.levelNodes[k].global_position.x = -9999.0
 		LevelsDatabase.levelNodes[k].global_position.y = -9999.0
 
-
 	#CamPos is second child of the level!
 	#CameraHelper.camera_position = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(1).global_position
 
 	LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(1).set_deferred("monitoring", true)
+	CountdownData.countdownVal = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(4).countdownVal
 
 	SaveLoadHelper.save_game()
 	print("---------------")

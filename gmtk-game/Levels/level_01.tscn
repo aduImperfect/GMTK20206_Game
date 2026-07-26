@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c7kw2s1jyomna" path="res://Scenes/death.tscn" id="4_1cq4g"]
 [ext_resource type="PackedScene" uid="uid://o11jqegfw74n" path="res://Scenes/campos.tscn" id="4_ocwms"]
 [ext_resource type="PackedScene" uid="uid://cewwvkacexvk2" path="res://Scenes/cardvalues.tscn" id="6_pbphk"]
+[ext_resource type="Script" uid="uid://dkodyp4vkvacb" path="res://Scripts/cards_legend.gd" id="7_5royd"]
+[ext_resource type="Script" uid="uid://q6vndxuwfur" path="res://Scripts/textmousemgr.gd" id="7_ale55"]
 
 [node name="Level_01" type="Node2D" unique_id=234875700]
 
@@ -24,6 +26,7 @@ position = Vector2(641, 152)
 
 [node name="CardValues" parent="." unique_id=1516587373 instance=ExtResource("6_pbphk")]
 handValues = Array[int]([1, 1])
+countdownVal = 2
 
 [node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("1_vk57k")]
 position = Vector2(20, 362)
@@ -45,18 +48,35 @@ scale = Vector2(30, 1)
 position = Vector2(640.00006, 22)
 scale = Vector2(30, 1)
 
-[node name="LevelEnd2" type="TextEdit" parent="." unique_id=357667467]
+[node name="LevelEnd" type="TextEdit" parent="." unique_id=357667467]
 offset_left = 1050.0
 offset_top = 272.0
 offset_right = 1229.0
 offset_bottom = 313.0
 text = "You're learning. ಠ╭╮ಠ"
-metadata/_edit_use_anchors_ = true
+editable = false
+script = ExtResource("7_ale55")
 
-[node name="LevelObjective3" type="TextEdit" parent="." unique_id=948582256]
+[node name="LevelObjective" type="TextEdit" parent="." unique_id=948582256]
 offset_left = 65.0
 offset_top = 251.0
 offset_right = 302.0
 offset_bottom = 299.0
 text = "Use the cards to move! (ง'̀-'́)ง"
-metadata/_edit_use_anchors_ = true
+editable = false
+script = ExtResource("7_ale55")
+
+[node name="CardsLegend" type="TextEdit" parent="." unique_id=138583198]
+z_index = -100
+offset_left = 1013.0
+offset_top = 51.0
+offset_right = 1226.0
+offset_bottom = 228.0
+text = "Cards Legend Goes Here
+🗲 = Deck BG
+🡢 = Move Forward
+🡠 = Move Backward
+🡱 = Jump
+x = Stop"
+editable = false
+script = ExtResource("7_5royd")

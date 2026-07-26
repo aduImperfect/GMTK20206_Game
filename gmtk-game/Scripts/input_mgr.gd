@@ -112,7 +112,7 @@ func _initialize() -> void:
 		if AudioDatabase.audio_styles_list_sttc.size() != 0:
 			(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[0]].get_child(0) as AudioStreamPlayer2D).play()
 
-	#CountdownData.countdownVal = CardsHelper.
+	CountdownData.countdownVal = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(4).countdownVal
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -125,17 +125,28 @@ func _process(_delta: float) -> void:
 
 	#Only accumulate delay once for all players and not playerCount times!
 	if InputsData.begin_delay && player_id == 0:
+		InputsData.countdown_level_switching = false
 		InputsData.delayed_reset_acc += _delta
 		if InputsData.delayed_reset_acc > InputsData.delayed_reset_max:
 			InputsData.delayed_reset_acc = 0.0
 			InputsData.begin_delay = false
-			#CardsHelper.switchingLevels = false
+			LevelsDatabase.prevLevel = LevelsDatabase.currLevel
 
 	if text_edit_input:
 		return
 
 	if LevelsDatabase.currLevel == LevelsDatabase.levelsCount:
 		return
+
+	if InputsData.countdown_level_switching && (LevelsDatabase.currLevel == LevelsDatabase.prevLevel):
+		DeathFuncs._player_death(self)
+		InputsData.countdown_level_switching = false
+		CountdownData.countdownVal = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(4).countdownVal
+		CardsHelper.cardLevelCloseInit = false
+
+	#Countdown went to 0 and level not complete!
+	if CountdownData.countdownVal == 0:
+		InputsData.countdown_level_switching = true
 
 	InputsData.action_occurring = action_in_progress
 
@@ -147,6 +158,7 @@ func _process(_delta: float) -> void:
 			wallHit = false
 			old_position = position
 			new_position = position
+			CountdownData.countdownVal -= 1
 
 	if is_on_ceiling():
 		move_timer = 0.0
@@ -198,6 +210,7 @@ func _process(_delta: float) -> void:
 			long_press_triggered = false
 			old_position = position
 			new_position = position
+			CountdownData.countdownVal -= 1
 		elif position.x >= new_position.x:
 			move_timer = 0.0
 			lerpTVal = 0.0
@@ -206,6 +219,7 @@ func _process(_delta: float) -> void:
 			long_press_triggered = false
 			old_position = position
 			new_position = position
+			CountdownData.countdownVal -= 1
 
 	if is_moving_backward && action_in_progress:
 		move_timer += _delta
@@ -217,6 +231,7 @@ func _process(_delta: float) -> void:
 			long_press_triggered = false
 			old_position = position
 			new_position = position
+			CountdownData.countdownVal -= 1
 		elif position.x <= new_position.x:
 			move_timer = 0.0
 			lerpTVal = 0.0
@@ -225,6 +240,7 @@ func _process(_delta: float) -> void:
 			long_press_triggered = false
 			old_position = position
 			new_position = position
+			CountdownData.countdownVal -= 1
 
 	if is_jumping_forward && action_in_progress:
 		move_timer += _delta
@@ -234,6 +250,7 @@ func _process(_delta: float) -> void:
 			is_jumping_forward = false
 			action_in_progress = false
 			long_press_triggered = false
+			CountdownData.countdownVal -= 1
 
 	#Long Press Action!
 	if is_holding and not long_press_triggered and not action_in_progress:

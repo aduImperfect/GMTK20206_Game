@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name CardMgr
+
 @export var initialDelayAccumulation : float = 0.0
 @export var initialDelayMax : float = 0.0
 
@@ -85,6 +87,9 @@ func _update_card_state() -> void:
 		return
 
 	if CardsHelper.handNodes.size() == 0:
+		return
+
+	if CardsHelper.handNodes.size() <= InputsData.curr_input_card_index:
 		return
 
 	InputsData.curr_input_card_value = CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).cardTypeVal

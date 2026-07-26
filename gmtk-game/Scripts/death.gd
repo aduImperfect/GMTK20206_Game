@@ -1,6 +1,6 @@
 extends Area2D
 
-#@export var playersEnteredGoal : Array[bool] = []
+class_name DeathFuncs
 
 @export var initial_setup : bool = false
 
@@ -16,6 +16,9 @@ func _process(_delta: float) -> void:
 		initial_setup = true
 
 func _on_body_entered(body: Node2D) -> void:
+	_player_death(body)
+
+static func _player_death(body: Node2D) -> void:
 	if body.owner.name.contains("Player") == false:
 		return
 
