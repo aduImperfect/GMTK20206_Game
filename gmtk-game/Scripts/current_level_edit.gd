@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 		timerAccumulation += _delta
 		if timerAccumulation > timerMax:
 			timerAccumulation = 0.0
-			text = "Current Level: " + str(LevelsDatabase.currLevel + 1)
+			text = "𝑳𝐕𝑳: " + str(LevelsDatabase.currLevel + 1)
 			timerReached = true
 		return
 

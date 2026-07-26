@@ -7,7 +7,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	text = "Countdown: " + str(CountdownData.countdownVal)
+	var countdownLife : String = ""
+	for k in CountdownData.countdownVal:
+		countdownLife += "♥️"
+	text = "⏳ ⌛ ⏰: " + countdownLife
 	#wrap_mode = TextEdit.LINE_WRAPPING_BOUNDARY
 
 func _input(event: InputEvent):

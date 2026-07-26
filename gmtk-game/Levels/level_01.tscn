@@ -71,15 +71,19 @@ script = ExtResource("7_ale55")
 
 [node name="CardsLegend" type="TextEdit" parent="." unique_id=138583198]
 z_index = -100
-offset_left = 1013.0
-offset_top = 51.0
-offset_right = 1226.0
-offset_bottom = 228.0
-text = "Cards Legend
+offset_left = 930.0
+offset_top = 50.0
+offset_right = 1230.0
+offset_bottom = 200.0
+text = "Cards Legend (Scroll for Controls):
 🗲 = Deck BG
 🡢 = Move Forward
 🡠 = Move Backward
-↗ = Jump Forward"
+↗ = Jump Forward
+↑ = Jump Upward
+Controls (Keyboard | Controller):
+🡠,🡢 Keys | D-pad | Axis = Highlight
+➖ | A | X | RT = Long Press Select"
 editable = false
 script = ExtResource("7_5royd")
 
@@ -93,7 +97,7 @@ offset_bottom = 275.0
 theme_override_colors/background_color = Color(0.2509804, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 text = "     WELCOME TO CARDFORMER
-                    AKA
+           🃜🃚🃖🃁🂭🂺 AKA 🧩🧩🧩
 THE CARD BASED PLATFORMER!!"
 editable = false
 wrap_mode = 1
@@ -106,6 +110,6 @@ show_behind_parent = true
 z_index = -700
 offset_left = 148.0
 offset_top = 575.0
-offset_right = 848.0
+offset_right = 948.0
 offset_bottom = 664.0
 texture = SubResource("CanvasTexture_3ro2k")

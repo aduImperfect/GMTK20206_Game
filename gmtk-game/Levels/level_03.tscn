@@ -28,7 +28,7 @@ scale = Vector2(60, 1)
 position = Vector2(678, 190)
 
 [node name="CardValues" parent="." unique_id=1516587373 instance=ExtResource("6_i7vav")]
-handValues = Array[int]([1, 4, 4, 1, 3, 2, 3, 4])
+handValues = Array[int]([1, 4, 4, 1, 1, 2, 3, 4])
 countdownVal = 6
 
 [node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("3_703nv")]
@@ -94,19 +94,19 @@ scale = Vector2(6, 1)
 [node name="LevelObjective" type="TextEdit" parent="." unique_id=434621396]
 offset_left = 76.0
 offset_top = 255.0
-offset_right = 246.0
+offset_right = 206.0
 offset_bottom = 295.0
-text = "Jump gap practice."
+text = "Go Figure! 😈"
 editable = false
 script = ExtResource("7_p0x8g")
 metadata/_edit_use_anchors_ = true
 
 [node name="LevelEnd" type="TextEdit" parent="." unique_id=1947659586]
-offset_left = 1070.0
+offset_left = 986.0
 offset_top = 383.0
-offset_right = 1130.0
+offset_right = 1136.0
 offset_bottom = 423.0
-text = "Nice."
+text = "You Figured! 😱"
 editable = false
 script = ExtResource("7_p0x8g")
 metadata/_edit_use_anchors_ = true
@@ -121,15 +121,19 @@ scale = Vector2(30, 1)
 
 [node name="CardsLegend" type="TextEdit" parent="." unique_id=650895158]
 z_index = -100
-offset_left = 1013.0
-offset_top = 51.0
-offset_right = 1226.0
-offset_bottom = 228.0
-text = "Cards Legend
+offset_left = 930.0
+offset_top = 50.0
+offset_right = 1230.0
+offset_bottom = 200.0
+text = "Cards Legend (Scroll for Controls):
 🗲 = Deck BG
 🡢 = Move Forward
 🡠 = Move Backward
-↗ = Jump Forward"
+↗ = Jump Forward
+↑ = Jump Upward
+Controls (Keyboard | Controller):
+🡠,🡢 Keys | D-pad | Axis = Highlight
+➖ | A | X | RT = Long Press Select"
 editable = false
 script = ExtResource("7_5wetp")
 
@@ -140,6 +144,6 @@ show_behind_parent = true
 z_index = -700
 offset_left = 148.0
 offset_top = 575.0
-offset_right = 848.0
+offset_right = 948.0
 offset_bottom = 664.0
 texture = SubResource("CanvasTexture_p0x8g")
