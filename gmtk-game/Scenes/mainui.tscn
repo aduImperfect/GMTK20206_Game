@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://1i3ejx2r54yf" path="res://Scripts/master_volume_h_slider_edit.gd" id="9_w0ycj"]
 [ext_resource type="Script" uid="uid://q6vndxuwfur" path="res://Scripts/textmousemgr.gd" id="10_01wry"]
 [ext_resource type="Script" uid="uid://cq2n5033i1abb" path="res://Scripts/countdown_timer.gd" id="10_crvle"]
+[ext_resource type="Script" uid="uid://clu4ec1x7iuuu" path="res://Scripts/game_complete.gd" id="12_gfj6t"]
+[ext_resource type="Script" uid="uid://bp0xkr1qlexer" path="res://Scripts/you_failed.gd" id="12_gim0o"]
 
 [node name="MainUi" type="Node2D" unique_id=473959145]
 
@@ -128,11 +130,37 @@ script = ExtResource("10_01wry")
 
 [node name="CountdownTimer" type="TextEdit" parent="." unique_id=383847940]
 z_index = -20
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(300, 100)
 offset_left = -556.0
 offset_top = -255.0
 offset_right = -356.0
 offset_bottom = -215.0
-theme_override_font_sizes/font_size = 20
+theme_override_colors/background_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 40
 editable = false
 script = ExtResource("10_crvle")
+
+[node name="GameComplete" type="TextEdit" parent="." unique_id=777397897]
+z_index = 100
+custom_minimum_size = Vector2(800, 130)
+offset_left = -394.0
+offset_top = -92.0
+offset_right = 406.0
+offset_bottom = 38.0
+theme_override_colors/background_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 90
+text = "GAME COMPLETE"
+editable = false
+script = ExtResource("12_gfj6t")
+
+[node name="You Failed" type="TextEdit" parent="." unique_id=1315135934]
+z_index = 100
+custom_minimum_size = Vector2(450, 70)
+offset_left = -249.0
+offset_top = -70.0
+offset_right = 201.0
+theme_override_colors/background_color = Color(3.4255767, 0, 0, 0.5294118)
+theme_override_font_sizes/font_size = 40
+text = "You Failed - Try Again"
+editable = false
+script = ExtResource("12_gim0o")

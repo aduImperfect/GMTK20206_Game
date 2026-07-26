@@ -67,6 +67,10 @@ static func _set_values() -> void:
 	print("All Levels Loaded!")
 
 static func _level_switcher(newLevelNum : int = -1) -> void:
+	if LevelsDatabase.currLevel > LevelsDatabase.levelsCount:
+		GameComplete.initialHide = false
+		return
+
 	lvlSwitchInProgress = true
 
 	print("---------------")

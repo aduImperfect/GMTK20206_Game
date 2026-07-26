@@ -142,6 +142,7 @@ func _process(_delta: float) -> void:
 		return
 
 	if InputsData.countdown_level_switching && (LevelsDatabase.currLevel == LevelsDatabase.prevLevel):
+		YouFailed.showNow = true
 		DeathFuncs._player_death(self)
 		InputsData.countdown_level_switching = false
 		CountdownData.countdownVal = LevelsDatabase.levelNodes[LevelsDatabase.currLevel].get_child(4).countdownVal
