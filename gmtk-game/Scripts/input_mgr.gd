@@ -1,6 +1,7 @@
 @tool
-
 extends CharacterBody2D
+
+class_name InputMgr
 
 @export var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -70,6 +71,7 @@ func _ready() -> void:
 	wallBounce = 100.0
 	wallHitDuration = 0.0
 	wallHitTimer = 0.5
+	begin_input = false
 
 func _initialize() -> void:
 	#If first time consideration of initialization from code needs to be given priority!

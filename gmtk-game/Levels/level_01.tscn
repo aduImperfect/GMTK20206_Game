@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cewwvkacexvk2" path="res://Scenes/cardvalues.tscn" id="6_pbphk"]
 [ext_resource type="Script" uid="uid://dkodyp4vkvacb" path="res://Scripts/cards_legend.gd" id="7_5royd"]
 [ext_resource type="Script" uid="uid://q6vndxuwfur" path="res://Scripts/textmousemgr.gd" id="7_ale55"]
+[ext_resource type="Script" uid="uid://med5cdnyq20i" path="res://Levels/welcome.gd" id="9_3ro2k"]
 
 [node name="Level_01" type="Node2D" unique_id=234875700]
 
@@ -49,10 +50,10 @@ position = Vector2(640.00006, 22)
 scale = Vector2(30, 1)
 
 [node name="LevelEnd" type="TextEdit" parent="." unique_id=357667467]
-offset_left = 1050.0
-offset_top = 272.0
-offset_right = 1229.0
-offset_bottom = 313.0
+offset_left = 1019.0
+offset_top = 271.0
+offset_right = 1219.0
+offset_bottom = 312.0
 text = "You're learning. ಠ╭╮ಠ"
 editable = false
 script = ExtResource("7_ale55")
@@ -80,3 +81,19 @@ text = "Cards Legend Goes Here
 x = Stop"
 editable = false
 script = ExtResource("7_5royd")
+
+[node name="Welcome" type="TextEdit" parent="." unique_id=421623875]
+z_index = 100
+custom_minimum_size = Vector2(350, 120)
+offset_left = 448.0
+offset_top = 155.0
+offset_right = 798.0
+offset_bottom = 275.0
+theme_override_colors/background_color = Color(0.2509804, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "     WELCOME TO CARDFORMER
+                    AKA
+THE CARD BASED PLATFORMER!!"
+editable = false
+wrap_mode = 1
+script = ExtResource("9_3ro2k")
