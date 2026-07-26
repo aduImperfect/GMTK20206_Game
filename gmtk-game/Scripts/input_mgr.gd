@@ -56,6 +56,8 @@ var run_start_global : Vector2 = Vector2.ZERO
 @export var initializationAccumulationTimer : float = 0.0
 @export var initializationCommplete : bool = false
 
+@export var moveDir : float = 0.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	initializationAccumulationTime = 0.0
@@ -152,7 +154,10 @@ func _process(_delta: float) -> void:
 	InputsData.action_occurring = action_in_progress
 
 	if wallHit:
-		position.x -= _delta * wallBounce
+		if moveDir > 0.0:
+			position.x -= _delta * wallBounce
+		elif moveDir < 0.0:
+			position.x += _delta * wallBounce
 		wallHitDuration += _delta
 		if wallHitDuration > wallHitTimer:
 			wallHitDuration = 0.0
@@ -165,6 +170,7 @@ func _process(_delta: float) -> void:
 		move_timer = 0.0
 		lerpTVal = 0.0
 		is_moving_forward = false
+		is_moving_backward = false
 		action_in_progress = false
 		long_press_triggered = false
 		old_position = position
@@ -174,17 +180,21 @@ func _process(_delta: float) -> void:
 		move_timer = 0.0
 		lerpTVal = 0.0
 		is_moving_forward = false
+		is_moving_backward = false
 		action_in_progress = false
 		long_press_triggered = false
-		#position.x = position.x - 50.0
 		wallHit = true
 
 	if is_moving_forward and not action_in_progress:
+		lerpTVal = 0.0
+		moveDir = 1.0
 		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[6]].get_child(0) as AudioStreamPlayer2D).play()
 		old_position = position
 		new_position = position + Vector2(InputsData.move_distance, 0.0)
 		action_in_progress = true
 	elif is_moving_backward and not action_in_progress:
+		lerpTVal = 0.0
+		moveDir = -1.0
 		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[6]].get_child(0) as AudioStreamPlayer2D).play()
 		old_position = position
 		new_position = position - Vector2(InputsData.move_distance, 0.0)
@@ -346,8 +356,8 @@ func _input(_event: InputEvent) -> void:
 	if _event.is_action_pressed(move_right_action):
 		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[1]].get_child(0) as AudioStreamPlayer2D).play()
 		InputsData.curr_input_card_index += 1
-		if InputsData.curr_input_card_index > (CardsHelper.handLimits[LevelsDatabase.currLevel].size() - 1):
-			InputsData.curr_input_card_index = (CardsHelper.handLimits[LevelsDatabase.currLevel].size() - 1)
+		if InputsData.curr_input_card_index > (CardsHelper.handNodes.size() - 1):
+			InputsData.curr_input_card_index = (CardsHelper.handNodes.size() - 1)
 
 	#Deselect all cards (helps see cards in unhighlighted mode if required for example)
 	if _event.is_action_pressed(cancel_action):
