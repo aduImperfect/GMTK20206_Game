@@ -17,7 +17,6 @@ func _process(_delta: float) -> void:
 			_return_to_deck()
 			CardsHelper.cardLevelCloseInit = true
 
-
 	if CardsHelper.cardLevelOpenInit == false:
 		initialDelayAccumulation += _delta
 		if initialDelayAccumulation > initialDelayMax:
@@ -25,22 +24,25 @@ func _process(_delta: float) -> void:
 			_draw_starting_hand()
 			CardsHelper.cardLevelOpenInit = true
 
+	_used()
 	_update_card_state()
 
 func _draw_starting_hand() -> void:
-	#Get current hand size!
-	#var k : int = CardsHelper.handNodes.size()
 	var k : int = 0
+	if CardsHelper.handNodes.size() != 0:
+		return
+
 	#Check against hand limit and keep adding to hand till then
 	while k < CardsHelper.handLimit:
 		CardsHelper.handNodes.push_back(CardsHelper.deckNodes.pop_back())
 		k += 1
 
-	print(CardsHelper.handNodes)
-	#print("Current level: ", LevelsDatabase.currLevel)
+	#print("Used Pile Updated: ", CardsHelper.usedPileUpdated)
 
-	#print("CardsHelper.handLimits[" + str(LevelsDatabase.currLevel) +  "]: ", CardsHelper.handLimits[LevelsDatabase.currLevel])
+	if CardsHelper.usedPileUpdated:
+		return
 
+	#print(CardsHelper.handNodes)
 	for j in CardsHelper.handNodes.size():
 		CardsHelper.handNodes[j].get_child(0).zIndex = -100
 		CardsHelper.handNodes[j].get_child(0).cardHandPosition = Vector2(CardsHelper.xCardCenter + (j * CardsHelper.xCardOffset), CardsHelper.yCardCenter)
@@ -51,6 +53,9 @@ func _draw_starting_hand() -> void:
 
 func _return_to_deck() -> void:
 	#Add back the leftover hand cards back into the deck (if any)!
+	if CardsHelper.handNodes.size() == 0:
+		CardsHelper.cardLevelOpenInit = false
+
 	while CardsHelper.handNodes.size() != 0:
 		CardsHelper.deckNodes.push_front(CardsHelper.handNodes.pop_back())
 
@@ -88,3 +93,27 @@ func _update_card_state() -> void:
 	CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).normal_state = false
 	CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).highlighted_state = !InputsData.curr_input_card_selected
 	CardsHelper.handNodes[InputsData.curr_input_card_index].get_child(0).selected_state = InputsData.curr_input_card_selected
+
+func _used() -> void:
+	if InputsData.action_occurring == false:
+		CardsHelper.usedPileUpdated = false
+		return
+
+	if CardsHelper.usedPileUpdated:
+		return
+
+	CardsHelper.deckNodes.push_front(CardsHelper.handNodes.pop_at(InputsData.curr_input_card_index))
+	InputsData.curr_input_card_index = 0
+
+	#print(CardsHelper.handNodes)
+
+	#Resort the elements!?
+	CardsHelper.handNodes.sort()
+
+	#Reset the z indices and the deck positions!
+	for j in CardsHelper.deckNodes.size():
+		CardsHelper.deckNodes[j].get_child(0).cardTypeVal = CardType.CARD_TYPE_ENUM.BACKSIDE
+		CardsHelper.deckNodes[j].get_child(0).zIndex = -500 + (j * 10)
+		CardsHelper.deckNodes[j].get_child(0).lerped = false
+
+	CardsHelper.usedPileUpdated = true

@@ -24,13 +24,7 @@ static var yInf : float = 0.0
 static var handLimit : int = 0
 static var handLimits : Array[Array] = []
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+static var usedPileUpdated : bool = false
 
 static func _load_card_textures() -> void:
 	cardTextures.clear()
@@ -88,5 +82,6 @@ static func _more_setters() -> void:
 	yCardDeckCenter = 600.0
 	xInf = -9999.0
 	yInf = -9999.0
+	usedPileUpdated = false
 
 	_load_card_textures()

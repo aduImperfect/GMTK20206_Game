@@ -128,12 +128,15 @@ func _process(_delta: float) -> void:
 		if InputsData.delayed_reset_acc > InputsData.delayed_reset_max:
 			InputsData.delayed_reset_acc = 0.0
 			InputsData.begin_delay = false
+			#CardsHelper.switchingLevels = false
 
 	if text_edit_input:
 		return
 
 	if LevelsDatabase.currLevel == LevelsDatabase.levelsCount:
 		return
+
+	InputsData.action_occurring = action_in_progress
 
 	if wallHit:
 		position.x -= _delta * wallBounce
@@ -317,22 +320,22 @@ func _input(_event: InputEvent) -> void:
 	#Highlight the left card index.
 	if _event.is_action_pressed(move_left_action):
 		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[1]].get_child(0) as AudioStreamPlayer2D).play()
+		InputsData.curr_input_card_index -= 1
 		if InputsData.curr_input_card_index < 0:
 			InputsData.curr_input_card_index = 0
-		else:
-			InputsData.curr_input_card_index -= 1
 
 	#Highlight the right card index.
 	if _event.is_action_pressed(move_right_action):
 		(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[1]].get_child(0) as AudioStreamPlayer2D).play()
+		InputsData.curr_input_card_index += 1
 		if InputsData.curr_input_card_index > (CardsHelper.handLimits[LevelsDatabase.currLevel].size() - 1):
 			InputsData.curr_input_card_index = (CardsHelper.handLimits[LevelsDatabase.currLevel].size() - 1)
-		else:
-			InputsData.curr_input_card_index += 1
 
 	#Deselect all cards (helps see cards in unhighlighted mode if required for example)
 	if _event.is_action_pressed(cancel_action):
 		InputsData.curr_input_card_index = -1
+		if InputsData.curr_input_card_index < 0:
+			InputsData.curr_input_card_index = 0
 
 func is_any_text_focused(node: Node) -> bool:
 	if node is TextEdit or node is LineEdit:

@@ -64,6 +64,9 @@ func _process(_delta: float) -> void:
 			revLerp = !revLerp
 			lerpVal = 0.0
 			lerped = true
+			if CardsHelper.usedPileUpdated:
+				cardHandPosition = cardDeckPosition
+				return
 			if revLerp == false:
 				cardHandPosition = cardDeckPosition
 				CardsHelper.cardLevelOpenInit = false

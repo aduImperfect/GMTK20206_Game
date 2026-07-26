@@ -33,6 +33,8 @@ static var curr_input_card_index : int
 static var curr_input_card_selected : bool
 static var curr_input_card_selection_complete : bool
 
+static var action_occurring : bool
+
 static func _set_initial_values() -> void:
 	jump_speed = 0.0
 	move_speed = 0.0
@@ -60,6 +62,8 @@ static func _set_initial_values() -> void:
 	curr_input_card_index = -1
 	curr_input_card_selected = false
 	curr_input_card_selection_complete = false
+
+	action_occurring = false
 
 static func _reset_values() -> void:
 	print("--------------------")
