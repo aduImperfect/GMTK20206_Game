@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c7kw2s1jyomna" path="res://Scenes/death.tscn" id="4_gff3n"]
 [ext_resource type="PackedScene" uid="uid://cewwvkacexvk2" path="res://Scenes/cardvalues.tscn" id="6_i7vav"]
 [ext_resource type="Script" uid="uid://dkodyp4vkvacb" path="res://Scripts/cards_legend.gd" id="7_5wetp"]
+[ext_resource type="Script" uid="uid://c2sc6rii682pn" path="res://Scripts/mover.gd" id="7_armlc"]
 [ext_resource type="Script" uid="uid://q6vndxuwfur" path="res://Scripts/textmousemgr.gd" id="7_p0x8g"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_p0x8g"]
@@ -14,10 +15,10 @@
 [node name="Level_03" type="Node2D" unique_id=1762506268]
 
 [node name="Start" parent="." unique_id=1470424718 instance=ExtResource("1_1vin3")]
-position = Vector2(78, 380)
+position = Vector2(59, 377)
 
 [node name="Goal" parent="." unique_id=1634378711 instance=ExtResource("2_ojpmh")]
-position = Vector2(1146, 444)
+position = Vector2(1129, 443)
 
 [node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_gff3n")]
 position = Vector2(642.00006, 665)
@@ -27,7 +28,7 @@ scale = Vector2(60, 1)
 position = Vector2(678, 190)
 
 [node name="CardValues" parent="." unique_id=1516587373 instance=ExtResource("6_i7vav")]
-handValues = Array[int]([1, 4, 1, 4, 1, 2])
+handValues = Array[int]([1, 4, 1, 4, 3, 2, 3, 4])
 countdownVal = 5
 
 [node name="Ground_W_R_2" parent="." unique_id=1751980 instance=ExtResource("3_703nv")]
@@ -39,34 +40,52 @@ position = Vector2(1261, 361)
 scale = Vector2(1, 18)
 
 [node name="Ground_P_5" parent="." unique_id=1348498635 instance=ExtResource("3_703nv")]
-position = Vector2(547, 357)
-scale = Vector2(8, 1)
+position = Vector2(425, 480)
+scale = Vector2(2, 1)
 
-[node name="Ground_P_8" parent="." unique_id=1709120753 instance=ExtResource("3_703nv")]
-position = Vector2(807, 357)
+[node name="Ground_P_6" parent="." unique_id=1533128158 instance=ExtResource("3_703nv")]
+position = Vector2(540, 356)
 scale = Vector2(5, 1)
 
+[node name="Ground_P_16" parent="." unique_id=1704762492 instance=ExtResource("3_703nv")]
+position = Vector2(624.00006, 480)
+scale = Vector2(5, 1)
+
+[node name="Ground_P_8" parent="." unique_id=1709120753 instance=ExtResource("3_703nv")]
+position = Vector2(827, 340)
+scale = Vector2(1, 8)
+
 [node name="Ground_P_12" parent="." unique_id=644116827 instance=ExtResource("3_703nv")]
-position = Vector2(639, 317)
+position = Vector2(620, 316)
 
 [node name="Ground_P_15" parent="." unique_id=2099953972 instance=ExtResource("3_703nv")]
-position = Vector2(407, 317)
+position = Vector2(369, 397)
+scale = Vector2(1, 4)
 
 [node name="Ground_P_14" parent="." unique_id=58414328 instance=ExtResource("3_703nv")]
 position = Vector2(330, 372)
+
+[node name="Ground_P_11" parent="." unique_id=693873029 instance=ExtResource("3_703nv")]
+position = Vector2(1055, 477)
+scale = Vector2(5, 1)
 
 [node name="Ground_P_13" parent="." unique_id=1646154685 instance=ExtResource("3_703nv")]
 position = Vector2(310, 412)
 rotation = -1.5707964
 scale = Vector2(1, 2)
 
-[node name="Ground_P_11" parent="." unique_id=693873029 instance=ExtResource("3_703nv")]
-position = Vector2(1055, 477)
-scale = Vector2(5, 1)
+[node name="Ground_P_17" parent="." unique_id=329650436 instance=ExtResource("3_703nv")]
+position = Vector2(783, 160)
+script = ExtResource("7_armlc")
+travelPoss = Array[Vector2]([Vector2(783, 160), Vector2(783, 400), Vector2(624, 400)])
+
+[node name="Ground_P_18" parent="." unique_id=431742828 instance=ExtResource("3_703nv")]
+position = Vector2(1173, 437.00003)
+scale = Vector2(1, 3)
 
 [node name="Ground_P_7" parent="." unique_id=216681752 instance=ExtResource("3_703nv")]
-position = Vector2(170, 412)
-scale = Vector2(5, 1)
+position = Vector2(156, 412)
+scale = Vector2(6, 1)
 
 [node name="LevelObjective" type="TextEdit" parent="." unique_id=434621396]
 offset_left = 76.0
@@ -79,10 +98,10 @@ script = ExtResource("7_p0x8g")
 metadata/_edit_use_anchors_ = true
 
 [node name="LevelEnd" type="TextEdit" parent="." unique_id=1947659586]
-offset_left = 1152.0
-offset_top = 360.0
-offset_right = 1212.0
-offset_bottom = 400.0
+offset_left = 1070.0
+offset_top = 383.0
+offset_right = 1130.0
+offset_bottom = 423.0
 text = "Nice."
 editable = false
 script = ExtResource("7_p0x8g")

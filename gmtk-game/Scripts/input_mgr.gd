@@ -172,6 +172,8 @@ func _process(_delta: float) -> void:
 		lerpTVal = 0.0
 		is_moving_forward = false
 		is_moving_backward = false
+		is_jumping_upward = false
+		is_jumping_forward = false
 		action_in_progress = false
 		long_press_triggered = false
 		old_position = position
@@ -182,6 +184,8 @@ func _process(_delta: float) -> void:
 		lerpTVal = 0.0
 		is_moving_forward = false
 		is_moving_backward = false
+		is_jumping_upward = false
+		is_jumping_forward = false
 		action_in_progress = false
 		long_press_triggered = false
 		wallHit = true
@@ -203,6 +207,7 @@ func _process(_delta: float) -> void:
 
 	if is_on_floor():
 		if is_jumping_upward and not action_in_progress:
+			(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[8]].get_child(0) as AudioStreamPlayer2D).play()
 			action_in_progress = true
 		elif is_jumping_forward and not action_in_progress:
 			(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[8]].get_child(0) as AudioStreamPlayer2D).play()
@@ -260,6 +265,16 @@ func _process(_delta: float) -> void:
 			move_timer = 0.0
 			lerpTVal = 0.0
 			is_jumping_forward = false
+			action_in_progress = false
+			long_press_triggered = false
+			CountdownData.countdownVal -= 1
+
+	if is_jumping_upward && action_in_progress:
+		move_timer += _delta
+		if move_timer > move_duration:
+			move_timer = 0.0
+			lerpTVal = 0.0
+			is_jumping_upward = false
 			action_in_progress = false
 			long_press_triggered = false
 			CountdownData.countdownVal -= 1
