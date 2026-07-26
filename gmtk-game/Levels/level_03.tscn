@@ -83,3 +83,17 @@ scale = Vector2(30, 1)
 [node name="Ground_P_10" parent="." unique_id=2051624496 instance=ExtResource("3_703nv")]
 position = Vector2(638.00006, 21)
 scale = Vector2(30, 1)
+
+[node name="CardsLegend" type="TextEdit" parent="." unique_id=650895158]
+offset_left = 51.0
+offset_top = 53.0
+offset_right = 264.0
+offset_bottom = 230.0
+text = "Cards Legend Goes Here
+🗲 = Deck BG
+🡢 = Move Forward
+🡠 = Move Backward
+🡱 = Jump
+x = Stop
+
+"

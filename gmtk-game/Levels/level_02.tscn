@@ -10,10 +10,10 @@
 [node name="Level_02" type="Node2D" unique_id=1163223301]
 
 [node name="Start" parent="." unique_id=1470424718 instance=ExtResource("1_2qs01")]
-position = Vector2(272, 451)
+position = Vector2(272, 363)
 
 [node name="Goal" parent="." unique_id=1634378711 instance=ExtResource("2_iel4d")]
-position = Vector2(977, 413)
+position = Vector2(977, 325)
 
 [node name="Death" parent="." unique_id=1296578022 instance=ExtResource("4_bsxbt")]
 position = Vector2(642.00006, 665)
@@ -34,30 +34,30 @@ position = Vector2(1261, 361)
 scale = Vector2(1, 18)
 
 [node name="Ground_P_5" parent="." unique_id=350770238 instance=ExtResource("3_i2y1e")]
-position = Vector2(627, 443)
+position = Vector2(627, 355)
 scale = Vector2(8, 1)
 
 [node name="Ground_P_8" parent="." unique_id=1710634279 instance=ExtResource("3_i2y1e")]
-position = Vector2(887, 443)
+position = Vector2(887, 355)
 scale = Vector2(5, 1)
 
 [node name="Ground_P_7" parent="." unique_id=248651494 instance=ExtResource("3_i2y1e")]
-position = Vector2(364, 483)
+position = Vector2(364, 395)
 scale = Vector2(5, 1)
 
 [node name="LevelObjective" type="TextEdit" parent="." unique_id=512979000]
 offset_left = 60.0
-offset_top = 363.0
+offset_top = 275.0
 offset_right = 223.0
-offset_bottom = 401.0
+offset_bottom = 313.0
 text = "Jump good practice."
 metadata/_edit_use_anchors_ = true
 
 [node name="LevelEnd" type="TextEdit" parent="." unique_id=1581963938]
 offset_left = 1005.0
-offset_top = 339.0
+offset_top = 251.0
 offset_right = 1061.0
-offset_bottom = 375.0
+offset_bottom = 287.0
 text = "Nice."
 metadata/_edit_use_anchors_ = true
 
