@@ -53,8 +53,8 @@ scale = Vector2(5, 1)
 [node name="LevelObjective" type="TextEdit" parent="." unique_id=512979000]
 offset_left = 60.0
 offset_top = 275.0
-offset_right = 223.0
-offset_bottom = 313.0
+offset_right = 230.0
+offset_bottom = 315.0
 text = "Jump good practice."
 editable = false
 script = ExtResource("7_ffslo")
@@ -63,8 +63,8 @@ metadata/_edit_use_anchors_ = true
 [node name="LevelEnd" type="TextEdit" parent="." unique_id=1581963938]
 offset_left = 1005.0
 offset_top = 251.0
-offset_right = 1061.0
-offset_bottom = 287.0
+offset_right = 1065.0
+offset_bottom = 291.0
 text = "Nice."
 editable = false
 script = ExtResource("7_ffslo")

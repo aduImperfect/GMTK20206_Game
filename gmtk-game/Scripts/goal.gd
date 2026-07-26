@@ -17,6 +17,23 @@ func _process(_delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if LevelsDatabase.currLevel >= LevelsDatabase.levelsCount:
+		body.global_position = global_position
+		body.get_child(0).is_moving_forward = false
+		body.get_child(0).is_moving_backward = false
+		body.get_child(0).is_jumping_upward = false
+		body.get_child(0).is_jumping_forward = false
+		body.get_child(0).is_speeding_up = false
+		body.get_child(0).is_speeding_down = false
+		body.get_child(0).is_stopping = false
+		body.get_child(0).long_press_triggered = false
+		body.get_child(0).action_in_progress = false
+		body.get_child(0).move_timer = 0.0
+		body.get_child(0).lerpTVal = 0.0
+		body.get_child(0).old_position = body.get_child(0).position
+		body.get_child(0).new_position = body.get_child(0).position
+		InputsData.move_speed = 0.0
+		body.is_moving_forward = false
+		body.action_in_progress = false
 		return
 
 	for k in PlayersHelper.playerNodes.size():

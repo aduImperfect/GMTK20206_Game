@@ -71,8 +71,8 @@ scale = Vector2(5, 1)
 [node name="LevelObjective" type="TextEdit" parent="." unique_id=434621396]
 offset_left = 76.0
 offset_top = 255.0
-offset_right = 239.0
-offset_bottom = 293.0
+offset_right = 246.0
+offset_bottom = 295.0
 text = "Jump gap practice."
 editable = false
 script = ExtResource("7_p0x8g")
@@ -81,8 +81,8 @@ metadata/_edit_use_anchors_ = true
 [node name="LevelEnd" type="TextEdit" parent="." unique_id=1947659586]
 offset_left = 1152.0
 offset_top = 360.0
-offset_right = 1208.0
-offset_bottom = 396.0
+offset_right = 1212.0
+offset_bottom = 400.0
 text = "Nice."
 editable = false
 script = ExtResource("7_p0x8g")
