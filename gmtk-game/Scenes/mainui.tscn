@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://b2ipuj5dflvvi" path="res://Scripts/cam_smoothing_edit.gd" id="7_c18ef"]
 [ext_resource type="Script" uid="uid://bex8rordnc1rm" path="res://Scripts/master_volume_h_slider_title.gd" id="8_w0ycj"]
 [ext_resource type="Script" uid="uid://1i3ejx2r54yf" path="res://Scripts/master_volume_h_slider_edit.gd" id="9_w0ycj"]
+[ext_resource type="Script" uid="uid://cq2n5033i1abb" path="res://Scripts/countdown_timer.gd" id="10_crvle"]
 
 [node name="MainUi" type="Node2D" unique_id=473959145]
 
@@ -121,3 +122,14 @@ offset_bottom = 155.0
 theme_override_font_sizes/font_size = 20
 text = "Hand"
 editable = false
+
+[node name="CountdownTimer" type="TextEdit" parent="." unique_id=383847940]
+z_index = -20
+custom_minimum_size = Vector2(200, 50)
+offset_left = -556.0
+offset_top = -255.0
+offset_right = -356.0
+offset_bottom = -215.0
+theme_override_font_sizes/font_size = 20
+editable = false
+script = ExtResource("10_crvle")

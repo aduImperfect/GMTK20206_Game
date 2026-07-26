@@ -112,6 +112,7 @@ func _initialize() -> void:
 		if AudioDatabase.audio_styles_list_sttc.size() != 0:
 			(AudioDatabase.audioNodes[AudioDatabase.audio_styles_list_sttc[0]].get_child(0) as AudioStreamPlayer2D).play()
 
+	#CountdownData.countdownVal = CardsHelper.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -146,7 +147,6 @@ func _process(_delta: float) -> void:
 			wallHit = false
 			old_position = position
 			new_position = position
-
 
 	if is_on_ceiling():
 		move_timer = 0.0
