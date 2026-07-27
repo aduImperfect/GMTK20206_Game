@@ -22,22 +22,51 @@ static var currLevel : int = 0:
 static var prevLevel : int = 0
 
 static func _load_level_scenes() -> void:
+	#LEVEL_SCENES.clear()
+	#var dir := DirAccess.open("res://Levels")
+	#if dir == null:
+		#push_error("LevelsDatabase: Could not open res://Levels directory.")
+		#return
+#
+	#var level_regex := RegEx.new()
+	#level_regex.compile("^level_(\\d{2})\\.tscn$")
+#
+	#dir.list_dir_begin()
+	#var file_name := dir.get_next()
+	#while file_name != "":
+		#if not dir.current_is_dir() and level_regex.search(file_name):
+			#LEVEL_SCENES.append("res://Levels/%s" % file_name)
+		#file_name = dir.get_next()
+	#dir.list_dir_end()
+#
+	#LEVEL_SCENES.sort()
+	#print(LEVEL_SCENES)
+
 	LEVEL_SCENES.clear()
-	var dir := DirAccess.open("res://Levels")
-	if dir == null:
+	var levelDir : DirAccess = DirAccess.open("res://Levels")
+	if levelDir == null:
 		push_error("LevelsDatabase: Could not open res://Levels directory.")
 		return
 
-	var level_regex := RegEx.new()
-	level_regex.compile("^level_(\\d{2})\\.tscn$")
-
-	dir.list_dir_begin()
-	var file_name := dir.get_next()
-	while file_name != "":
-		if not dir.current_is_dir() and level_regex.search(file_name):
-			LEVEL_SCENES.append("res://Levels/%s" % file_name)
-		file_name = dir.get_next()
-	dir.list_dir_end()
+	levelDir.list_dir_begin()
+	var fileName : String = levelDir.get_next()
+	while !fileName.is_empty():
+		if not levelDir.current_is_dir():
+			# In the editor, files end in .tscn
+			# In an exported build, they end in .tscn.remap
+			if fileName.begins_with("level_") and (fileName.ends_with(".tscn") or fileName.ends_with(".tscn.remap")):
+				# Strip the .remap suffix so ResourceLoader can find the virtual asset
+				var cleanName : String = fileName.replace(".remap", "")
+				var full_path :String = "res://Levels/%s" % cleanName
+				
+				# Verify it actually loads via ResourceLoader before adding it
+				if ResourceLoader.exists(full_path):
+					# Prevent duplicates if both .tscn and .remap are spotted
+					if not LEVEL_SCENES.has(full_path):
+						LEVEL_SCENES.append(full_path)
+						
+		fileName = levelDir.get_next()
+	levelDir.list_dir_end()
 
 	LEVEL_SCENES.sort()
 	print(LEVEL_SCENES)

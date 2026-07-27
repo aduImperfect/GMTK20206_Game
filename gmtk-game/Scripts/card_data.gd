@@ -28,21 +28,42 @@ static var usedPileUpdated : bool = false
 
 static func _load_card_textures() -> void:
 	cardTextures.clear()
-	var dir := DirAccess.open("res://Textures")
-	if dir == null:
+	var cardDir : DirAccess = DirAccess.open("res://Textures")
+	if cardDir == null:
 		push_error("CardsHelper: Could not open res://Textures directory.")
 		return
 
-	var cardTex_regex := RegEx.new()
-	cardTex_regex.compile("^Card_.*\\.png$")
+	#var cardTex_regex := RegEx.new()
+	#cardTex_regex.compile("^Card_.*\\.png$")
+#
+	#dir.list_dir_begin()
+	#var file_name := dir.get_next()
+	#while file_name != "":
+		#if not dir.current_is_dir() and cardTex_regex.search(file_name):
+			#cardTextures.append(load("res://Textures/%s" % file_name))
+		#file_name = dir.get_next()
+	#dir.list_dir_end()
 
-	dir.list_dir_begin()
-	var file_name := dir.get_next()
-	while file_name != "":
-		if not dir.current_is_dir() and cardTex_regex.search(file_name):
-			cardTextures.append(load("res://Textures/%s" % file_name))
-		file_name = dir.get_next()
-	dir.list_dir_end()
+	cardDir.list_dir_begin()
+	var fileName : String = cardDir.get_next()
+	while !fileName.is_empty():
+		if not cardDir.current_is_dir():
+			# In the editor, files end in .tscn
+			# In an exported build, they end in .tscn.remap
+			if fileName.begins_with("Card_") and (fileName.ends_with(".png") or fileName.ends_with(".png.import")):
+				# Strip the .import suffix so ResourceLoader can find the virtual asset
+				var cleanName : String = fileName.replace(".import", "")
+				var full_path :String = "res://Textures/%s" % cleanName
+				
+				# Verify it actually loads via ResourceLoader before adding it
+				if ResourceLoader.exists(full_path):
+					var tex : Texture2D = load(full_path)
+					if not cardTextures.has(tex):
+						cardTextures.append(tex)
+						
+		fileName = cardDir.get_next()
+	cardDir.list_dir_end()
+
 
 	cardTextures.sort()
 	print(cardTextures)

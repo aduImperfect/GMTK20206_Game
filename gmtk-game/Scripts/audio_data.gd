@@ -23,7 +23,7 @@ static var audioMgrNode : Node2D
 
 static func _inital_volume_values() -> void:
 	#Exactly half the volume
-	audioMasterVolume = 0.0
+	audioMasterVolume = 0.5
 
 static func _reset_volume_values() -> void:
 	audioMasterVolume = SaveLoadHelper.save_data.get("game", 1).get("audio", 1).get("volume", 1).get("master", 1)
@@ -33,21 +33,33 @@ static func _set_current_volumes() -> void:
 
 static func _load_audio_scenes() -> void:
 	AUDIO_SCENES.clear()
-	var dir := DirAccess.open("res://Audio")
-	if dir == null:
+	var audioDir : DirAccess = DirAccess.open("res://Audio")
+	if audioDir == null:
 		push_error("AudioDatabase: Could not open res://Audio directory.")
 		return
 
-	var audio_regex := RegEx.new()
-	audio_regex.compile("^audio_(\\d{2})_.*\\.tscn$")
+	#var audio_regex := RegEx.new()
+	#audio_regex.compile("^audio_(\\d{2})_.*\\.tscn$")
 
-	dir.list_dir_begin()
-	var file_name := dir.get_next()
-	while file_name != "":
-		if not dir.current_is_dir() and audio_regex.search(file_name):
-			AUDIO_SCENES.append("res://Audio/%s" % file_name)
-		file_name = dir.get_next()
-	dir.list_dir_end()
+	audioDir.list_dir_begin()
+	var fileName : String = audioDir.get_next()
+	while !fileName.is_empty():
+		if not audioDir.current_is_dir():
+			# In the editor, files end in .tscn
+			# In an exported build, they end in .tscn.remap
+			if fileName.begins_with("audio_") and (fileName.ends_with(".tscn") or fileName.ends_with(".tscn.remap")):
+				# Strip the .remap suffix so ResourceLoader can find the virtual asset
+				var cleanName : String = fileName.replace(".remap", "")
+				var full_path :String = "res://Audio/%s" % cleanName
+				
+				# Verify it actually loads via ResourceLoader before adding it
+				if ResourceLoader.exists(full_path):
+					# Prevent duplicates if both .tscn and .remap are spotted
+					if not AUDIO_SCENES.has(full_path):
+						AUDIO_SCENES.append(full_path)
+						
+		fileName = audioDir.get_next()
+	audioDir.list_dir_end()
 
 	AUDIO_SCENES.sort()
 
